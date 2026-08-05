@@ -658,20 +658,39 @@ Long session stability
 
 /*=====================================================
 11 SCROLLBAR
+=====================================================*/
 
-=====================================================
-*/
+::-webkit-scrollbar {
+
+    width: 10px;
+    height: 10px;
+
+}
 
 
-* {
+::-webkit-scrollbar-track {
 
-
-    scrollbar-color:
-
-        var(--geode-border)
-
+    background:
         var(--geode-background);
 
+}
+
+
+::-webkit-scrollbar-thumb {
+
+    background:
+        var(--geode-border);
+
+    border-radius:
+        20px;
+
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+
+    background:
+        var(--geode-crystal-primary);
 
 }
 /*
