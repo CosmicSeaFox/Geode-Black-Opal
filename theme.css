@@ -1,0 +1,3815 @@
+/*
+=====================================================
+
+GEODE OBSIDIAN THEME
+BLACK OPAL EDITION
+
+PART 1
+
+- Design Tokens
+- Dark / Light Modes
+- Obsidian Variables
+- Black Opal Crystal System
+- Crystal Veins
+- Workspace
+- Tabs
+- Ribbon
+- Status Bar
+
+=====================================================
+*/
+
+
+/*=====================================================
+01 DESIGN TOKENS
+=====================================================*/
+
+
+:root {
+
+    --geode-font-body:
+        "Inter",
+        "Noto Sans",
+        sans-serif;
+
+
+    --geode-font-heading:
+        "Cormorant Garamond",
+        "Libre Baskerville",
+        serif;
+
+
+    --geode-font-code:
+        "JetBrains Mono",
+        monospace;
+
+
+    --geode-radius-sm:
+        8px;
+
+
+    --geode-radius-md:
+        14px;
+
+
+    --geode-radius-lg:
+        20px;
+
+
+    --geode-transition:
+        .25s ease;
+
+}
+
+
+
+/*=====================================================
+02 BLACK OPAL DARK MODE
+
+Volcanic obsidian stone
+with calm turquoise crystal veins
+
+=====================================================
+*/
+
+
+.theme-dark {
+
+
+    --geode-background:
+        #070909;
+
+
+    --geode-background-secondary:
+        #0d1111;
+
+
+    --geode-panel:
+        #131818;
+
+
+    --geode-panel-hover:
+        #1a2020;
+
+
+
+    /* Stone */
+
+    --geode-border:
+        #303838;
+
+
+    --geode-border-light:
+        #465151;
+
+
+
+    /* Black Opal Crystal */
+
+    --geode-crystal-primary:
+        #72d7d0;
+
+
+    --geode-crystal-secondary:
+        #d9e6e8;
+
+
+    --geode-crystal-glow:
+        rgba(114,215,208,.22);
+
+
+
+    /* Text */
+
+    --geode-text:
+        #d4dddd;
+
+
+    --geode-text-bright:
+        #f5f8f8;
+
+
+    --geode-text-muted:
+        #899494;
+
+
+
+    /* System */
+
+    --geode-success:
+        #7ee787;
+
+
+    --geode-warning:
+        #ffd166;
+
+
+    --geode-danger:
+        #ff7b7b;
+
+
+}
+
+
+
+
+/*=====================================================
+03 LIGHT MODE
+
+White quartz archive
+=====================================================
+*/
+
+
+.theme-light {
+
+
+    --geode-background:
+        #f3f1eb;
+
+
+    --geode-background-secondary:
+        #ebe7dc;
+
+
+    --geode-panel:
+        #ffffff;
+
+
+    --geode-panel-hover:
+        #faf8f2;
+
+
+
+    --geode-border:
+        #d6d0c3;
+
+
+    --geode-border-light:
+        #bbb4a7;
+
+
+
+    --geode-crystal-primary:
+        #278f91;
+
+
+    --geode-crystal-secondary:
+        #527b80;
+
+
+    --geode-crystal-glow:
+        rgba(39,143,145,.18);
+
+
+
+    --geode-text:
+        #252828;
+
+
+    --geode-text-bright:
+        #111111;
+
+
+    --geode-text-muted:
+        #777777;
+
+
+}
+
+
+
+/*=====================================================
+04 OBSIDIAN CORE VARIABLES
+
+Compatibility layer
+
+=====================================================
+*/
+
+
+.theme-dark,
+.theme-light {
+
+
+    --background-primary:
+        var(--geode-background);
+
+
+    --background-secondary:
+        var(--geode-background-secondary);
+
+
+
+    --background-primary-alt:
+        var(--geode-panel);
+
+
+    --background-secondary-alt:
+        var(--geode-panel-hover);
+
+
+
+    --background-modifier-border:
+        var(--geode-border);
+
+
+
+    --text-normal:
+        var(--geode-text);
+
+
+
+    --text-muted:
+        var(--geode-text-muted);
+
+
+
+    --text-accent:
+        var(--geode-crystal-primary);
+
+
+
+    --interactive-accent:
+        var(--geode-crystal-primary);
+
+
+
+    --interactive-hover:
+        var(--geode-crystal-secondary);
+
+
+}
+
+
+
+/*=====================================================
+05 CRYSTAL VEIN SYSTEM
+
+Change crystal personality
+
+=====================================================
+*/
+
+
+/* Black Opal */
+
+body.geode-opal {
+
+
+    --geode-crystal-primary:
+        #72d7d0;
+
+
+    --geode-crystal-secondary:
+        #d9e6e8;
+
+
+    --geode-crystal-glow:
+        rgba(114,215,208,.22);
+
+}
+
+
+
+/* Quartz */
+
+body.geode-quartz {
+
+
+    --geode-crystal-primary:
+        #d9e6e8;
+
+
+    --geode-crystal-secondary:
+        #72d7d0;
+
+
+    --geode-crystal-glow:
+        rgba(217,230,232,.20);
+
+}
+
+
+
+/* Sapphire */
+
+body.geode-sapphire {
+
+
+    --geode-crystal-primary:
+        #4aa8ff;
+
+
+    --geode-crystal-secondary:
+        #8ed8ff;
+
+
+    --geode-crystal-glow:
+        rgba(74,168,255,.22);
+
+}
+
+
+
+/* Emerald */
+
+body.geode-emerald {
+
+
+    --geode-crystal-primary:
+        #46d98a;
+
+
+    --geode-crystal-secondary:
+        #9affc5;
+
+
+    --geode-crystal-glow:
+        rgba(70,217,138,.22);
+
+}
+
+
+
+/* Citrine */
+
+body.geode-citrine {
+
+
+    --geode-crystal-primary:
+        #ffc857;
+
+
+    --geode-crystal-secondary:
+        #ffe5a3;
+
+
+    --geode-crystal-glow:
+        rgba(255,200,87,.22);
+
+}
+
+
+
+/* Diamond */
+
+body.geode-diamond {
+
+
+    --geode-crystal-primary:
+        #e8f5ff;
+
+
+    --geode-crystal-secondary:
+        #ffffff;
+
+
+    --geode-crystal-glow:
+        rgba(232,245,255,.22);
+
+}
+
+
+
+/*=====================================================
+06 BODY
+
+=====================================================
+*/
+
+
+body {
+
+
+    background:
+
+        radial-gradient(
+            circle at top,
+            var(--geode-crystal-glow),
+            transparent 38%
+        ),
+
+        var(--geode-background);
+
+
+
+    color:
+
+        var(--geode-text);
+
+
+
+    font-family:
+
+        var(--geode-font-body);
+
+
+}
+
+
+
+/*=====================================================
+07 WORKSPACE
+
+Long session stability
+
+=====================================================
+*/
+
+
+.workspace {
+
+
+    background:
+
+        var(--geode-background);
+
+
+}
+
+
+
+.workspace-leaf {
+
+
+    background:
+
+        var(--geode-panel);
+
+
+
+    border-color:
+
+        var(--geode-border);
+
+
+}
+
+
+
+.workspace-leaf-content {
+
+
+    width:
+
+        100%;
+
+
+    overflow-x:
+
+        hidden;
+
+
+}
+
+
+
+/*=====================================================
+08 TABS
+
+=====================================================
+*/
+
+
+.workspace-tab-header {
+
+
+    color:
+
+        var(--geode-text-muted);
+
+
+}
+
+
+
+.workspace-tab-header:hover {
+
+
+    color:
+
+        var(--geode-text-bright);
+
+
+}
+
+
+
+.workspace-tab-header.is-active {
+
+
+    color:
+
+        var(--geode-text-bright);
+
+
+
+    border-bottom:
+
+        2px solid
+        var(--geode-crystal-primary);
+
+
+
+    box-shadow:
+
+        0 0 12px
+        var(--geode-crystal-glow);
+
+
+}
+
+
+
+/*=====================================================
+09 RIBBON
+
+=====================================================
+*/
+
+
+.workspace-ribbon {
+
+
+    background:
+
+        var(--geode-panel);
+
+
+
+    border-right:
+
+        1px solid
+        var(--geode-border);
+
+
+}
+
+
+
+.side-dock-ribbon-action {
+
+
+    color:
+
+        var(--geode-text-muted);
+
+
+}
+
+
+
+.side-dock-ribbon-action:hover {
+
+
+    color:
+
+        var(--geode-crystal-primary);
+
+
+}
+
+
+
+/*=====================================================
+10 STATUS BAR
+
+=====================================================
+*/
+
+
+.status-bar {
+
+
+    background:
+
+        var(--geode-panel);
+
+
+
+    border-top:
+
+        1px solid
+        var(--geode-border);
+
+
+
+    color:
+
+        var(--geode-text-muted);
+
+
+}
+
+
+
+.status-bar-item:hover {
+
+
+    color:
+
+        var(--geode-crystal-primary);
+
+
+}
+
+
+
+/*=====================================================
+11 SCROLLBAR
+
+=====================================================
+*/
+
+
+* {
+
+
+    scrollbar-color:
+
+        var(--geode-border)
+
+        var(--geode-background);
+
+
+}
+/*
+=====================================================
+
+GEODE OBSIDIAN THEME
+BLACK OPAL EDITION
+
+PART 2
+
+- Editor Foundation
+- Reading Mode
+- Live Preview
+- Typography
+- Headings
+- Links
+- Lists
+- Quotes
+- Tables
+- Code Blocks
+- Images
+- Mobile Comfort
+
+=====================================================
+*/
+
+
+/*=====================================================
+01 EDITOR FOUNDATION
+
+Designed for long writing sessions
+
+=====================================================
+*/
+
+
+.markdown-preview-view,
+.markdown-source-view {
+
+
+    font-family:
+
+        var(--geode-font-body);
+
+
+
+    font-size:
+
+        17px;
+
+
+
+    line-height:
+
+        1.75;
+
+
+
+    letter-spacing:
+
+        .01em;
+
+
+}
+
+
+
+/*=====================================================
+02 READING WIDTH
+
+Comfortable eye movement
+
+=====================================================
+*/
+
+
+.markdown-preview-view .markdown-preview-sizer {
+
+
+    max-width:
+
+        850px;
+
+
+
+    width:
+
+        100%;
+
+
+
+    margin:
+
+        0 auto;
+
+
+}
+
+
+
+/* Source editor */
+
+.markdown-source-view .cm-scroller {
+
+
+    padding-left:
+
+        35px;
+
+
+
+    padding-right:
+
+        35px;
+
+
+
+    overflow-x:
+
+        hidden;
+
+
+}
+
+
+
+/*=====================================================
+03 LIVE PREVIEW
+
+Writing chamber
+
+=====================================================
+*/
+
+
+.cm-editor {
+
+
+    font-family:
+
+        var(--geode-font-body);
+
+
+
+    font-size:
+
+        17px;
+
+
+
+    line-height:
+
+        1.7;
+
+
+}
+
+
+
+.cm-scroller {
+
+
+    overflow-x:
+
+        hidden;
+
+
+}
+
+
+
+/* Active writing line */
+
+
+.cm-activeLine {
+
+
+    background:
+
+        rgba(114,215,208,.045);
+
+
+}
+
+
+
+/* Cursor */
+
+
+.cm-cursor {
+
+
+    border-left-color:
+
+        var(--geode-crystal-primary);
+
+
+}
+
+
+
+/* Selection */
+
+
+.cm-selectionBackground {
+
+
+    background:
+
+        rgba(114,215,208,.22);
+
+
+}
+
+
+
+/*=====================================================
+04 TYPOGRAPHY
+
+=====================================================
+*/
+
+
+.markdown-preview-view h1,
+.markdown-preview-view h2,
+.markdown-preview-view h3,
+.markdown-preview-view h4,
+.markdown-preview-view h5,
+.markdown-preview-view h6 {
+
+
+    font-family:
+
+        var(--geode-font-heading);
+
+
+
+    font-weight:
+
+        700;
+
+
+
+    color:
+
+        var(--geode-text-bright);
+
+
+}
+
+
+
+/*=====================================================
+05 HEADINGS
+
+Black Opal crystal layers
+
+=====================================================
+*/
+
+
+.markdown-preview-view h1 {
+
+
+    font-size:
+
+        2.5em;
+
+
+
+    padding-bottom:
+
+        15px;
+
+
+
+    border-bottom:
+
+        1px solid
+        var(--geode-border);
+
+
+
+    text-shadow:
+
+        0 0 12px
+        var(--geode-crystal-glow);
+
+
+}
+
+
+
+.markdown-preview-view h2 {
+
+
+    font-size:
+
+        2em;
+
+
+
+    color:
+
+        var(--geode-crystal-primary);
+
+
+}
+
+
+
+.markdown-preview-view h3 {
+
+
+    font-size:
+
+        1.5em;
+
+
+
+    color:
+
+        var(--geode-crystal-secondary);
+
+
+}
+
+
+
+.markdown-preview-view h4,
+.markdown-preview-view h5,
+.markdown-preview-view h6 {
+
+
+    color:
+
+        var(--geode-text-bright);
+
+
+}
+
+
+
+/*=====================================================
+06 PARAGRAPHS
+
+Reading comfort
+
+=====================================================
+*/
+
+
+.markdown-preview-view p {
+
+
+    margin-bottom:
+
+        1.2em;
+
+
+
+    color:
+
+        var(--geode-text);
+
+
+}
+
+
+
+/*=====================================================
+07 LINKS
+
+Crystal veins
+
+=====================================================
+*/
+
+
+.markdown-preview-view a,
+.internal-link {
+
+
+    color:
+
+        var(--geode-crystal-primary);
+
+
+
+    text-decoration:
+
+        none;
+
+
+
+    transition:
+
+        var(--geode-transition);
+
+
+}
+
+
+
+.markdown-preview-view a:hover,
+.internal-link:hover {
+
+
+    color:
+
+        var(--geode-crystal-secondary);
+
+
+
+    text-shadow:
+
+        0 0 8px
+        var(--geode-crystal-glow);
+
+
+}
+
+
+
+/* Unresolved links */
+
+
+.is-unresolved {
+
+
+    color:
+
+        var(--geode-warning);
+
+
+}
+
+
+
+/*=====================================================
+08 LISTS
+
+=====================================================
+*/
+
+
+.markdown-preview-view ul,
+.markdown-preview-view ol {
+
+
+    padding-left:
+
+        30px;
+
+
+}
+
+
+
+.markdown-preview-view li {
+
+
+    margin-bottom:
+
+        8px;
+
+
+}
+
+
+
+.markdown-preview-view li::marker {
+
+
+    color:
+
+        var(--geode-crystal-primary);
+
+
+}
+
+
+
+/*=====================================================
+09 HIGHLIGHT
+
+Memory crystal
+
+=====================================================
+*/
+
+
+.markdown-preview-view mark {
+
+
+    background:
+
+        rgba(255,200,87,.20);
+
+
+
+    color:
+
+        var(--geode-text-bright);
+
+
+
+    padding:
+
+        2px 6px;
+
+
+
+    border-radius:
+
+        6px;
+
+
+}
+
+
+
+/*=====================================================
+10 BLOCKQUOTE
+
+Ancient inscription
+
+=====================================================
+*/
+
+
+blockquote {
+
+
+    background:
+
+        rgba(114,215,208,.07);
+
+
+
+    border-left:
+
+        4px solid
+        var(--geode-crystal-primary);
+
+
+
+    padding:
+
+        15px 20px;
+
+
+
+    border-radius:
+
+        var(--geode-radius-md);
+
+
+
+    color:
+
+        var(--geode-text-muted);
+
+
+
+    font-style:
+
+        italic;
+
+
+}
+
+
+
+/*=====================================================
+11 INLINE CODE
+
+=====================================================
+*/
+
+
+code {
+
+
+    font-family:
+
+        var(--geode-font-code);
+
+
+
+    background:
+
+        rgba(114,215,208,.10);
+
+
+
+    border:
+
+        1px solid
+        var(--geode-border);
+
+
+
+    padding:
+
+        2px 6px;
+
+
+
+    border-radius:
+
+        6px;
+
+
+
+    color:
+
+        var(--geode-crystal-secondary);
+
+
+}
+
+
+
+/*=====================================================
+12 CODE BLOCKS
+
+Crystal terminal
+
+=====================================================
+*/
+
+
+pre {
+
+
+    font-family:
+
+        var(--geode-font-code);
+
+
+
+    background:
+
+        #050707;
+
+
+
+    border:
+
+        1px solid
+        var(--geode-border);
+
+
+
+    border-radius:
+
+        14px;
+
+
+
+    padding:
+
+        20px;
+
+
+
+    overflow:
+
+        auto;
+
+
+
+    box-shadow:
+
+        inset 0 0 25px
+        rgba(114,215,208,.06);
+
+
+}
+
+
+
+pre code {
+
+
+    background:
+
+        transparent;
+
+
+
+    border:
+
+        none;
+
+
+
+    padding:
+
+        0;
+
+
+}
+
+
+
+/*=====================================================
+13 TABLE SYSTEM
+
+Archive stone
+
+HEADER AND BODY SAME COLOUR
+
+=====================================================
+*/
+
+
+.markdown-preview-view table,
+.table-view-table {
+
+
+    background:
+
+        var(--geode-panel);
+
+
+
+    border:
+
+        1px solid
+        var(--geode-border);
+
+
+
+    border-radius:
+
+        12px;
+
+
+
+    overflow:
+
+        hidden;
+
+
+}
+
+
+
+/* Header */
+
+
+.markdown-preview-view thead th,
+.table-view-table thead th {
+
+
+    background:
+
+        var(--geode-panel);
+
+
+
+    color:
+
+        var(--geode-crystal-primary);
+
+
+
+    font-weight:
+
+        700;
+
+
+}
+
+
+
+/* Body */
+
+
+.markdown-preview-view tbody td,
+.table-view-table tbody td {
+
+
+    background:
+
+        var(--geode-panel);
+
+
+
+    color:
+
+        var(--geode-text);
+
+
+}
+
+
+
+/* Cells */
+
+
+.markdown-preview-view th,
+.markdown-preview-view td,
+.table-view-table th,
+.table-view-table td {
+
+
+    border:
+
+        1px solid
+        var(--geode-border);
+
+
+
+    padding:
+
+        12px 14px;
+
+
+}
+
+
+
+/* Soft hover */
+
+
+.markdown-preview-view tbody tr:hover,
+.table-view-table tbody tr:hover {
+
+
+    background:
+
+        rgba(114,215,208,.05);
+
+
+}
+
+
+
+/*=====================================================
+14 DIVIDER
+
+Crystal fracture
+
+=====================================================
+*/
+
+
+.markdown-preview-view hr {
+
+
+    border:
+
+        none;
+
+
+
+    height:
+
+        1px;
+
+
+
+    background:
+
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--geode-crystal-primary),
+            transparent
+        );
+
+
+}
+
+
+
+/*=====================================================
+15 IMAGES
+
+Crystal fragments
+
+=====================================================
+*/
+
+
+.markdown-preview-view img {
+
+
+    border-radius:
+
+        14px;
+
+
+
+    border:
+
+        1px solid
+        var(--geode-border);
+
+
+
+    box-shadow:
+
+        0 10px 30px
+        rgba(0,0,0,.30);
+
+
+}
+
+
+
+/*=====================================================
+16 MOBILE
+
+=====================================================
+*/
+
+
+@media(max-width:700px){
+
+
+    .markdown-preview-view {
+
+
+        font-size:
+
+            16px;
+
+
+
+        padding:
+
+            0 15px;
+
+
+    }
+
+
+
+    .markdown-preview-view .markdown-preview-sizer {
+
+
+        max-width:
+
+            100%;
+
+
+    }
+
+
+
+    .cm-editor {
+
+
+        font-size:
+
+            16px;
+
+
+    }
+
+
+}
+/*
+=====================================================
+
+GEODE OBSIDIAN THEME
+BLACK OPAL EDITION
+
+PART 3
+
+- Crystal Callouts
+- Tags
+- File Explorer
+- Properties Panel
+- Glass Panels
+- Search Popup
+- Buttons
+- Ambient Cave Lighting
+
+=====================================================
+*/
+
+
+/*=====================================================
+01 CRYSTAL CALLOUT SYSTEM
+
+Geode chambers
+
+Usage:
+
+> [!crystal]
+> Important knowledge
+
+> [!artifact]
+> Ancient object
+
+> [!research]
+> Investigation
+
+> [!secret]
+> Hidden information
+
+=====================================================
+*/
+
+
+.callout {
+
+
+    border-radius:
+
+        var(--geode-radius-md);
+
+
+
+    backdrop-filter:
+
+        blur(8px);
+
+
+
+    border:
+
+        1px solid
+        var(--geode-border);
+
+
+}
+
+
+
+/*=====================================================
+CRYSTAL
+
+=====================================================
+*/
+
+
+.callout[data-callout="crystal"] {
+
+
+    --callout-color:
+
+        114,215,208;
+
+
+
+    background:
+
+        rgba(114,215,208,.10);
+
+
+
+    border-color:
+
+        rgba(114,215,208,.45);
+
+
+
+    box-shadow:
+
+        0 0 18px
+        rgba(114,215,208,.12);
+
+
+}
+
+
+
+/*=====================================================
+ARTIFACT
+
+Ancient treasure
+
+=====================================================
+*/
+
+
+.callout[data-callout="artifact"] {
+
+
+    --callout-color:
+
+        210,180,120;
+
+
+
+    background:
+
+        rgba(210,180,120,.10);
+
+
+}
+
+
+
+/*=====================================================
+LORE
+
+=====================================================
+*/
+
+
+.callout[data-callout="lore"] {
+
+
+    --callout-color:
+
+        190,220,220;
+
+
+
+    background:
+
+        rgba(190,220,220,.08);
+
+
+}
+
+
+
+/*=====================================================
+RESEARCH
+
+=====================================================
+*/
+
+
+.callout[data-callout="research"] {
+
+
+    --callout-color:
+
+        74,168,255;
+
+
+
+    background:
+
+        rgba(74,168,255,.08);
+
+
+}
+
+
+
+/*=====================================================
+SECRET
+
+=====================================================
+*/
+
+
+.callout[data-callout="secret"] {
+
+
+    --callout-color:
+
+        255,120,170;
+
+
+
+    background:
+
+        rgba(255,120,170,.08);
+
+
+}
+
+
+
+/*=====================================================
+IDEA
+
+=====================================================
+*/
+
+
+.callout[data-callout="idea"] {
+
+
+    --callout-color:
+
+        255,200,87;
+
+
+
+    background:
+
+        rgba(255,200,87,.08);
+
+
+}
+
+
+
+/* Callout title */
+
+
+.callout-title {
+
+
+    font-weight:
+
+        700;
+
+
+
+    color:
+
+        var(--geode-text-bright);
+
+
+}
+
+
+
+/* Callout content */
+
+
+.callout-content {
+
+
+    color:
+
+        var(--geode-text);
+
+
+}
+
+
+
+/*=====================================================
+02 TAG SYSTEM
+
+Crystal labels
+
+=====================================================
+*/
+
+
+.tag {
+
+
+    background:
+
+        rgba(114,215,208,.10);
+
+
+
+    border:
+
+        1px solid
+        var(--geode-crystal-primary);
+
+
+
+    border-radius:
+
+        20px;
+
+
+
+    padding:
+
+        3px 10px;
+
+
+
+    color:
+
+        var(--geode-text);
+
+
+
+    transition:
+
+        var(--geode-transition);
+
+
+}
+
+
+
+.tag:hover {
+
+
+    background:
+
+        var(--geode-crystal-primary);
+
+
+
+    color:
+
+        #071010;
+
+
+
+    box-shadow:
+
+        0 0 12px
+        var(--geode-crystal-glow);
+
+
+}
+
+
+
+/*=====================================================
+03 FILE EXPLORER
+
+Crystal archive
+
+=====================================================
+*/
+
+
+.nav-folder-title {
+
+
+    color:
+
+        var(--geode-text);
+
+
+}
+
+
+
+.nav-folder-title-content {
+
+
+    font-weight:
+
+        600;
+
+
+}
+
+
+
+/* Folder crystal mark */
+
+
+.nav-folder-title-content::before {
+
+
+    content:
+
+        "◇ ";
+
+
+
+    color:
+
+        var(--geode-crystal-primary);
+
+
+}
+
+
+
+/* Folder hover */
+
+
+.nav-folder-title:hover {
+
+
+    color:
+
+        var(--geode-crystal-primary);
+
+
+}
+
+
+
+/* Active note */
+
+
+.nav-file-title.is-active {
+
+
+    background:
+
+        rgba(114,215,208,.10);
+
+
+
+    border-left:
+
+        3px solid
+        var(--geode-crystal-primary);
+
+
+
+    box-shadow:
+
+        inset 0 0 15px
+        rgba(114,215,208,.08);
+
+
+}
+
+
+
+/* File hover */
+
+
+.nav-file-title:hover {
+
+
+    background:
+
+        rgba(114,215,208,.05);
+
+
+
+    color:
+
+        var(--geode-crystal-primary);
+
+
+}
+
+
+
+/*=====================================================
+04 PROPERTIES PANEL
+
+Knowledge metadata stone
+
+=====================================================
+*/
+
+
+.metadata-container {
+
+
+    background:
+
+        var(--geode-panel);
+
+
+
+    border:
+
+        1px solid
+        var(--geode-border);
+
+
+
+    border-radius:
+
+        var(--geode-radius-md);
+
+
+
+    padding:
+
+        15px;
+
+
+
+    box-shadow:
+
+        0 10px 30px
+        rgba(0,0,0,.25);
+
+
+}
+
+
+
+.metadata-property {
+
+
+    border-bottom:
+
+        1px solid
+        var(--geode-border);
+
+
+}
+
+
+
+.metadata-property:last-child {
+
+
+    border-bottom:
+
+        none;
+
+
+}
+
+
+
+/* Property name */
+
+
+.metadata-property-key {
+
+
+    color:
+
+        var(--geode-crystal-primary);
+
+
+
+    font-weight:
+
+        700;
+
+
+}
+
+
+
+/* Property value */
+
+
+.metadata-property-value {
+
+
+    color:
+
+        var(--geode-text);
+
+
+}
+
+
+
+/*=====================================================
+05 GLASS CRYSTAL PANELS
+
+=====================================================
+*/
+
+
+.geode-glass {
+
+
+    background:
+
+        rgba(255,255,255,.035);
+
+
+
+    backdrop-filter:
+
+        blur(14px);
+
+
+
+    border:
+
+        1px solid
+        var(--geode-border);
+
+
+
+    border-radius:
+
+        var(--geode-radius-md);
+
+
+}
+
+
+
+/* Glow utility */
+
+
+.geode-glow {
+
+
+    box-shadow:
+
+        0 0 25px
+        var(--geode-crystal-glow);
+
+
+}
+
+
+
+/* Crystal border */
+
+
+.geode-border {
+
+
+    border:
+
+        1px solid
+        var(--geode-crystal-primary);
+
+
+}
+
+
+
+/*=====================================================
+06 AMBIENT CAVE LIGHTING
+
+Subtle only
+
+=====================================================
+*/
+
+
+.workspace {
+
+
+    position:
+
+        relative;
+
+
+}
+
+
+
+.workspace::before {
+
+
+    content:
+
+        "";
+
+
+
+    position:
+
+        absolute;
+
+
+
+    inset:
+
+        0;
+
+
+
+    pointer-events:
+
+        none;
+
+
+
+    background:
+
+        radial-gradient(
+            circle at top left,
+            var(--geode-crystal-glow),
+            transparent 30%
+        );
+
+
+
+    opacity:
+
+        .10;
+
+
+}
+
+
+
+.theme-light .workspace::before {
+
+
+    opacity:
+
+        .04;
+
+
+}
+
+
+
+/*=====================================================
+07 SEARCH / COMMAND PALETTE
+
+Crystal chamber
+
+=====================================================
+*/
+
+
+.modal,
+.prompt {
+
+
+    background:
+
+        var(--geode-panel);
+
+
+
+    border:
+
+        1px solid
+        var(--geode-border);
+
+
+
+    border-radius:
+
+        var(--geode-radius-md);
+
+
+
+    box-shadow:
+
+        0 20px 60px
+        rgba(0,0,0,.40);
+
+
+}
+
+
+
+.prompt-input {
+
+
+    background:
+
+        var(--geode-background);
+
+
+
+    border:
+
+        1px solid
+        var(--geode-border);
+
+
+
+    color:
+
+        var(--geode-text);
+
+
+}
+
+
+
+/*=====================================================
+08 BUTTON FOUNDATION
+
+=====================================================
+*/
+
+
+button {
+
+
+    border-radius:
+
+        10px;
+
+
+
+    transition:
+
+        var(--geode-transition);
+
+
+}
+
+
+
+button:hover {
+
+
+    box-shadow:
+
+        0 0 12px
+        var(--geode-crystal-glow);
+
+
+}
+/*
+=====================================================
+
+GEODE OBSIDIAN THEME
+BLACK OPAL EDITION
+
+PART 4
+
+- Dataview
+- Tasks
+- Calendar
+- Kanban
+- Canvas
+- Excalidraw
+- Graph View
+- Mermaid
+- Embeds
+- Accessibility
+- Final Polish
+
+=====================================================
+*/
+
+
+/*=====================================================
+01 DATAVIEW
+
+Black Opal archive database
+
+=====================================================
+*/
+
+
+.dataview {
+
+
+    color:
+
+        var(--geode-text);
+
+
+}
+
+
+
+.dataview.table-view-table {
+
+
+    background:
+
+        var(--geode-panel);
+
+
+
+    border:
+
+        1px solid
+        var(--geode-border);
+
+
+
+    border-radius:
+
+        var(--geode-radius-md);
+
+
+
+    overflow:
+
+        hidden;
+
+
+}
+
+
+
+/* Dataview header */
+
+
+.dataview th {
+
+
+    background:
+
+        var(--geode-panel);
+
+
+
+    color:
+
+        var(--geode-crystal-primary);
+
+
+
+    font-weight:
+
+        700;
+
+
+}
+
+
+
+/* Dataview body */
+
+
+.dataview td {
+
+
+    background:
+
+        var(--geode-panel);
+
+
+
+    color:
+
+        var(--geode-text);
+
+
+
+    border-color:
+
+        var(--geode-border);
+
+
+}
+
+
+
+/* Row hover */
+
+
+.dataview tbody tr:hover {
+
+
+    background:
+
+        rgba(114,215,208,.05);
+
+
+}
+
+
+
+/* Dataview cards */
+
+
+.dataview .card {
+
+
+    background:
+
+        var(--geode-panel);
+
+
+
+    border:
+
+        1px solid
+        var(--geode-border);
+
+
+
+    border-radius:
+
+        16px;
+
+
+
+    padding:
+
+        16px;
+
+
+}
+
+
+
+.dataview .card:hover {
+
+
+    border-color:
+
+        var(--geode-crystal-primary);
+
+
+
+    box-shadow:
+
+        0 0 18px
+        var(--geode-crystal-glow);
+
+
+}
+
+
+
+/*=====================================================
+02 TASK SYSTEM
+
+Crystal completion
+
+=====================================================
+*/
+
+
+.task-list-item-checkbox {
+
+
+    appearance:
+
+        none;
+
+
+
+    width:
+
+        18px;
+
+
+
+    height:
+
+        18px;
+
+
+
+    border:
+
+        2px solid
+        var(--geode-crystal-primary);
+
+
+
+    border-radius:
+
+        50%;
+
+
+}
+
+
+
+.task-list-item-checkbox:hover {
+
+
+    box-shadow:
+
+        0 0 10px
+        var(--geode-crystal-glow);
+
+
+}
+
+
+
+.task-list-item-checkbox:checked {
+
+
+    background:
+
+        var(--geode-crystal-primary);
+
+
+
+    box-shadow:
+
+        0 0 15px
+        var(--geode-crystal-glow);
+
+
+}
+
+
+
+.task-list-item-checkbox:checked::after {
+
+
+    content:
+
+        "✓";
+
+
+
+    color:
+
+        #071010;
+
+
+
+    display:
+
+        flex;
+
+
+
+    justify-content:
+
+        center;
+
+
+}
+
+
+
+/* Completed text */
+
+
+.task-list-item-checkbox:checked + span {
+
+
+    opacity:
+
+        .55;
+
+
+}
+
+
+
+/*=====================================================
+03 CALENDAR
+
+Crystal timeline
+
+=====================================================
+*/
+
+
+.calendar {
+
+
+    background:
+
+        var(--geode-panel);
+
+
+
+    border:
+
+        1px solid
+        var(--geode-border);
+
+
+
+    border-radius:
+
+        16px;
+
+
+}
+
+
+
+.calendar .today {
+
+
+    background:
+
+        var(--geode-crystal-primary);
+
+
+
+    color:
+
+        #071010;
+
+
+
+    border-radius:
+
+        50%;
+
+
+
+    box-shadow:
+
+        0 0 18px
+        var(--geode-crystal-glow);
+
+
+}
+
+
+
+/*=====================================================
+04 KANBAN
+
+Project crystal formations
+
+=====================================================
+*/
+
+
+.kanban-plugin__lane {
+
+
+    background:
+
+        var(--geode-panel);
+
+
+
+    border:
+
+        1px solid
+        var(--geode-border);
+
+
+
+    border-radius:
+
+        16px;
+
+
+}
+
+
+
+.kanban-plugin__lane-header {
+
+
+    color:
+
+        var(--geode-crystal-primary);
+
+
+
+    font-weight:
+
+        700;
+
+
+}
+
+
+
+.kanban-plugin__item {
+
+
+    background:
+
+        var(--geode-panel-hover);
+
+
+
+    border:
+
+        1px solid
+        var(--geode-border);
+
+
+
+    border-radius:
+
+        12px;
+
+
+}
+
+
+
+.kanban-plugin__item:hover {
+
+
+    border-color:
+
+        var(--geode-crystal-primary);
+
+
+
+    box-shadow:
+
+        0 0 18px
+        var(--geode-crystal-glow);
+
+
+}
+
+
+
+/*=====================================================
+05 CANVAS
+
+Geode planning chamber
+
+=====================================================
+*/
+
+
+.canvas-wrapper {
+
+
+    background:
+
+
+        radial-gradient(
+
+            circle at center,
+
+            #101616,
+
+            #050606
+
+        );
+
+
+}
+
+
+
+.canvas-node {
+
+
+    background:
+
+        rgba(15,20,20,.92);
+
+
+
+    border:
+
+        1px solid
+        var(--geode-border);
+
+
+
+    border-radius:
+
+        16px;
+
+
+
+    box-shadow:
+
+        0 10px 30px
+        rgba(0,0,0,.45);
+
+
+}
+
+
+
+.canvas-node:hover {
+
+
+    border-color:
+
+        var(--geode-crystal-primary);
+
+
+
+    box-shadow:
+
+        0 0 25px
+        var(--geode-crystal-glow);
+
+
+}
+
+
+
+/*=====================================================
+06 EXCALIDRAW
+
+Crystal drawing room
+
+=====================================================
+*/
+
+
+.excalidraw {
+
+
+    --color-primary:
+
+        var(--geode-crystal-primary);
+
+
+}
+
+
+
+.excalidraw .App-menu {
+
+
+    background:
+
+        var(--geode-panel);
+
+
+
+    border-radius:
+
+        14px;
+
+
+}
+
+
+
+/*=====================================================
+07 GRAPH VIEW
+
+BLACK OPAL GEODE NETWORK
+
+Underground crystal chamber
+
+=====================================================
+*/
+
+
+.graph-view {
+
+
+    background:
+
+
+        radial-gradient(
+
+            circle at center,
+
+            #111818,
+
+            #030404
+
+        );
+
+
+}
+
+
+
+/* Crystal nodes */
+
+
+.graph-view .node {
+
+
+    fill:
+
+        var(--geode-crystal-primary);
+
+
+
+    stroke:
+
+        var(--geode-crystal-secondary);
+
+
+
+    stroke-width:
+
+        2;
+
+
+
+    filter:
+
+        drop-shadow(
+
+            0 0 8px
+            var(--geode-crystal-glow)
+
+        );
+
+
+}
+
+
+
+/* Selected crystal */
+
+
+.graph-view .node.is-selected {
+
+
+    fill:
+
+        #ffffff;
+
+
+
+    stroke:
+
+        var(--geode-crystal-primary);
+
+
+
+    stroke-width:
+
+        4;
+
+
+
+    filter:
+
+        drop-shadow(
+
+            0 0 20px
+            var(--geode-crystal-primary)
+
+        );
+
+
+}
+
+
+
+/* Crystal veins */
+
+
+.graph-view .link {
+
+
+    stroke:
+
+        rgba(114,215,208,.30);
+
+
+
+    stroke-width:
+
+        1.5;
+
+
+}
+
+
+
+/* Active vein */
+
+
+.graph-view .link.is-focused {
+
+
+    stroke:
+
+        var(--geode-crystal-secondary);
+
+
+
+    stroke-width:
+
+        3;
+
+
+
+    filter:
+
+        drop-shadow(
+
+            0 0 10px
+            var(--geode-crystal-glow)
+
+        );
+
+
+}
+
+
+
+/* Graph labels */
+
+
+.graph-view text {
+
+
+    fill:
+
+        var(--geode-text);
+
+
+
+    font-family:
+
+        var(--geode-font-body);
+
+
+}
+
+
+
+/*=====================================================
+08 MERMAID
+
+Crystal blueprint
+
+=====================================================
+*/
+
+
+.mermaid {
+
+
+    background:
+
+        rgba(114,215,208,.04);
+
+
+
+    border:
+
+        1px solid
+        var(--geode-border);
+
+
+
+    border-radius:
+
+        16px;
+
+
+
+    padding:
+
+        20px;
+
+
+}
+
+
+
+/*=====================================================
+09 EMBEDS
+
+Knowledge fragments
+
+=====================================================
+*/
+
+
+.markdown-embed,
+.internal-embed {
+
+
+    background:
+
+        var(--geode-panel);
+
+
+
+    border:
+
+        1px solid
+        var(--geode-border);
+
+
+
+    border-radius:
+
+        14px;
+
+
+
+    padding:
+
+        12px;
+
+
+}
+
+
+
+/*=====================================================
+10 ACCESSIBILITY
+
+Long session support
+
+=====================================================
+*/
+
+
+.markdown-preview-view {
+
+
+    text-rendering:
+
+        optimizeLegibility;
+
+
+}
+
+
+
+/* Focus */
+
+
+button:focus-visible,
+input:focus-visible {
+
+
+    outline:
+
+        2px solid
+        var(--geode-crystal-primary);
+
+
+
+    outline-offset:
+
+        3px;
+
+
+}
+
+
+
+/* High contrast */
+
+
+@media(prefers-contrast:high){
+
+
+    .callout,
+    .tag,
+    .workspace-leaf {
+
+
+        border-width:
+
+            2px;
+
+
+    }
+
+
+}
+
+
+
+/*=====================================================
+11 MOBILE
+
+=====================================================
+*/
+
+
+@media(max-width:700px){
+
+
+    .callout {
+
+
+        border-radius:
+
+            10px;
+
+
+    }
+
+
+
+    .metadata-container {
+
+
+        border-radius:
+
+            12px;
+
+
+    }
+
+
+
+    .workspace-ribbon {
+
+
+        background:
+
+            var(--geode-panel);
+
+
+    }
+
+
+}
+
+
+
+/*
+=====================================================
+
+GEODE OBSIDIAN THEME
+BLACK OPAL EDITION
+
+COMPLETE
+
+A calm underground crystal archive
+
+=====================================================
+*/
+/*
+=====================================================
+
+GEODE BLACK OPAL
+LIGHT MODE REFINEMENT
+
+Soft Crystal Glass UI
+
+=====================================================
+*/
+
+
+/*=====================================================
+01 LIGHT MODE SURFACE
+=====================================================*/
+
+
+.theme-light {
+
+
+    --geode-background:
+
+        #ddd9cd;
+
+
+    --geode-background-secondary:
+
+        #e7e3d8;
+
+
+    --geode-panel:
+
+        rgba(255,255,255,.45);
+
+
+    --geode-panel-hover:
+
+        rgba(255,255,255,.65);
+
+
+    --geode-border:
+
+        #cbc4b5;
+
+
+    --geode-text:
+
+        #303332;
+
+
+    --geode-text-bright:
+
+        #111313;
+
+
+    --geode-text-muted:
+
+        #73766f;
+
+
+
+}
+
+
+
+/*=====================================================
+02 MAIN READING GLASS
+=====================================================*/
+
+
+.theme-light .workspace-leaf,
+.theme-light .markdown-preview-view {
+
+
+    background:
+
+        transparent;
+
+
+
+}
+
+
+
+.theme-light .markdown-preview-sizer {
+
+
+    background:
+
+        rgba(255,255,255,.28);
+
+
+
+    backdrop-filter:
+
+        blur(12px);
+
+
+
+    border-radius:
+
+        20px;
+
+
+
+}
+
+
+
+/*=====================================================
+03 CODE BLOCK LIGHT CRYSTAL
+
+Readable code
+No black box
+
+=====================================================
+*/
+
+
+.theme-light pre {
+
+
+    background:
+
+        rgba(220,218,207,.75);
+
+
+
+    border:
+
+        1px solid
+        var(--geode-border);
+
+
+
+    color:
+
+        #343838;
+
+
+
+    box-shadow:
+
+
+        inset 0 0 30px
+        rgba(0,0,0,.05);
+
+
+
+}
+
+
+
+.theme-light pre code {
+
+
+    color:
+
+        #303536;
+
+
+
+    background:
+
+        transparent;
+
+
+
+}
+
+
+
+.theme-light code {
+
+
+    background:
+
+        rgba(40,127,130,.10);
+
+
+
+    color:
+
+        #245d60;
+
+
+
+}
+
+
+
+/*=====================================================
+04 TABLE GLASS
+
+=====================================================
+*/
+
+
+.theme-light table {
+
+
+    background:
+
+        rgba(255,255,255,.35);
+
+
+
+    backdrop-filter:
+
+        blur(10px);
+
+
+
+}
+
+
+
+.theme-light th {
+
+
+    background:
+
+        rgba(40,127,130,.10);
+
+
+
+    color:
+
+        #236d70;
+
+
+
+}
+
+
+
+.theme-light td {
+
+
+    background:
+
+        transparent;
+
+
+
+    color:
+
+        #343635;
+
+
+
+}
+
+
+
+/*=====================================================
+05 CALLOUT GLASS
+=====================================================
+*/
+
+
+.theme-light .callout {
+
+
+    background:
+
+        rgba(255,255,255,.35);
+
+
+
+    backdrop-filter:
+
+        blur(10px);
+
+
+
+}
+
+
+
+/*=====================================================
+06 EMBEDS / PANELS
+=====================================================
+*/
+
+
+.theme-light .markdown-embed,
+.theme-light .internal-embed,
+.theme-light .metadata-container {
+
+
+    background:
+
+        rgba(255,255,255,.40);
+
+
+
+    backdrop-filter:
+
+        blur(12px);
+
+
+
+}
+
+
+
+/*=====================================================
+07 FILE EXPLORER SOFT
+=====================================================
+*/
+
+
+.theme-light .nav-file-title.is-active {
+
+
+    background:
+
+        rgba(40,127,130,.12);
+
+
+
+}
+
+
+
+.theme-light .nav-file-title:hover {
+
+
+    background:
+
+        rgba(40,127,130,.08);
+
+
+
+}
+
+
+
+/*=====================================================
+08 REMOVE HARSH WHITE
+
+=====================================================
+*/
+
+
+.theme-light .workspace-tab-header-container,
+.theme-light .workspace-ribbon {
+
+
+    background:
+
+        rgba(255,255,255,.25);
+
+
+
+}
