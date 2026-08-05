@@ -1,4 +1,4 @@
-```md
+
 # Geode Black Opal
 
 ![Obsidian Theme](https://img.shields.io/badge/Obsidian-Theme-purple)
@@ -304,4 +304,3 @@ If you enjoy this theme and want to support future development:
 </a>
 
 [![Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/cosmicseafox)
----
