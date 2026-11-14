@@ -366,30 +366,30 @@ body.geode-veins-off .app-container::after { display: none; }
 .search-result-container, .workspace-sidedock-vault-profile,
 .workspace-tab-header-container, .workspace-drawer-inner,
 .workspace-drawer .workspace-leaf-content {
-  background: transparent !important;
+  background: transparent ;
 }
 .horizontal-main-container { position: relative; z-index: 1; }
 
 /* 06c · ZONE VEILS — translucent color over the slab */
-.titlebar { background-color: var(--geode-veil-chrome) !important; border-bottom: 1px solid var(--geode-gold-seam); }
-.workspace-ribbon { background-color: var(--geode-veil-ribbon) !important; border-right: 1px solid var(--geode-gold-seam); }
+.titlebar { background-color: var(--geode-veil-chrome) ; border-bottom: 1px solid var(--geode-gold-seam); }
+.workspace-ribbon { background-color: var(--geode-veil-ribbon) ; border-right: 1px solid var(--geode-gold-seam); }
 .mod-left-split .workspace-leaf-content,
-.mod-right-split .workspace-leaf-content { background-color: var(--geode-veil-chrome) !important; }
-.mod-root .workspace-tab-header-container { background-color: var(--geode-veil-chrome) !important; }
-.view-header { background-color: var(--geode-veil-chrome) !important; border-bottom: 1px solid var(--geode-border); }
-.mod-left-split .view-header, .mod-right-split .view-header { background: transparent !important; }
-.status-bar { background-color: var(--geode-veil-status) !important; border-top: 1px solid var(--geode-gold-seam); color: var(--geode-text-bright); }
-.markdown-source-view.mod-cm6 .cm-scroller { background-color: var(--geode-veil-text) !important; backdrop-filter: blur(var(--geode-blur)); }
-.markdown-preview-view { background-color: var(--geode-veil-text) !important; backdrop-filter: blur(var(--geode-blur)); }
+.mod-right-split .workspace-leaf-content { background-color: var(--geode-veil-chrome) ; }
+.mod-root .workspace-tab-header-container { background-color: var(--geode-veil-chrome) ; }
+.view-header { background-color: var(--geode-veil-chrome) ; border-bottom: 1px solid var(--geode-border); }
+.mod-left-split .view-header, .mod-right-split .view-header { background: transparent ; }
+.status-bar { background-color: var(--geode-veil-status) ; border-top: 1px solid var(--geode-gold-seam); color: var(--geode-text-bright); }
+.markdown-source-view.mod-cm6 .cm-scroller { background-color: var(--geode-veil-text) ; backdrop-filter: blur(var(--geode-blur)); }
+.markdown-preview-view { background-color: var(--geode-veil-text) ; backdrop-filter: blur(var(--geode-blur)); }
 .workspace-leaf-content[data-type="graph"] .view-content,
-.workspace-leaf-content[data-type="localgraph"] .view-content { background-color: var(--geode-veil-graph) !important; }
-.canvas-wrapper { background-color: var(--geode-veil-graph) !important; }
-.empty-state { background-color: var(--geode-veil-graph) !important; }
-.modal, .prompt { background-color: var(--geode-veil-modal) !important; }
-.workspace-drawer { background-color: var(--geode-veil-chrome) !important; }
-.mobile-navbar { background-color: var(--geode-veil-status) !important; border-top: 1px solid var(--geode-gold-seam); }
-.mobile-toolbar { background-color: var(--geode-veil-status) !important; border-top: 1px solid var(--geode-gold-seam); padding-bottom: env(safe-area-inset-bottom); }
-.pdf-container, .pdf-viewer-container { background-color: var(--geode-veil-text) !important; }
+.workspace-leaf-content[data-type="localgraph"] .view-content { background-color: var(--geode-veil-graph) ; }
+.canvas-wrapper { background-color: var(--geode-veil-graph) ; }
+.empty-state { background-color: var(--geode-veil-graph) ; }
+.modal, .prompt { background-color: var(--geode-veil-modal) ; }
+.workspace-drawer { background-color: var(--geode-veil-chrome) ; }
+.mobile-navbar { background-color: var(--geode-veil-status) ; border-top: 1px solid var(--geode-gold-seam); }
+.mobile-toolbar { background-color: var(--geode-veil-status) ; border-top: 1px solid var(--geode-gold-seam); padding-bottom: env(safe-area-inset-bottom); }
+.pdf-container, .pdf-viewer-container { background-color: var(--geode-veil-text) ; }
 
 .titlebar-text { color: var(--geode-text-bright); font-size: 13px; letter-spacing: .02em; }
 .titlebar-button { color: var(--geode-text); }
@@ -481,7 +481,7 @@ body.geode-veins-off .app-container::after { display: none; }
   background: transparent; border: none; box-shadow: none; backdrop-filter: none;
   padding: 44px clamp(24px, 6vw, 88px);
 }
-body.geode-card .markdown-preview-view { background: transparent !important; backdrop-filter: none; }
+body.geode-card .markdown-preview-view { background: transparent ; backdrop-filter: none; }
 body.geode-card .markdown-preview-view .markdown-preview-sizer {
   max-width: 850px; margin: 0 auto;
   background: var(--geode-veil-strong);
@@ -492,7 +492,7 @@ body.geode-card .markdown-preview-view .markdown-preview-sizer {
 }
 .markdown-embed .markdown-preview-view,
 .hover-popover .markdown-preview-view,
-.canvas-node .markdown-preview-view { background: transparent !important; backdrop-filter: none; }
+.canvas-node .markdown-preview-view { background: transparent ; backdrop-filter: none; }
 .markdown-embed .markdown-preview-view .markdown-preview-sizer,
 .hover-popover .markdown-preview-view .markdown-preview-sizer,
 .canvas-node .markdown-preview-view .markdown-preview-sizer { max-width: 100%; padding: 0; }
@@ -811,7 +811,7 @@ body.theme-dark .bases-view table tbody td:hover {
 
 /* List values: plain teal text + muted × on pointer devices */
 .multi-select-container {
-  background: transparent !important;
+  background: transparent ;
   border: none;
   box-shadow: none;
   padding: 0;
@@ -840,17 +840,17 @@ body.theme-dark .bases-view table tbody td:hover {
   width: 18px; height: 18px; min-width: 18px;
   border: 2px solid var(--geode-crystal-primary);
   border-radius: 4px;
-  background-color: var(--geode-field-bg) !important;
-  background-image: none !important;
+  background-color: var(--geode-field-bg) ;
+  background-image: none ;
   cursor: pointer;
   transition: var(--geode-transition);
   margin: 0;
 }
 .metadata-property-value input[type="checkbox"]:checked,
 .metadata-property-checkbox:checked {
-  background-color: var(--geode-gold) !important;
+  background-color: var(--geode-gold) ;
   border-color: var(--geode-gold);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2304120e' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12l5 5L20 7'/%3E%3C/svg%3E") !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2304120e' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12l5 5L20 7'/%3E%3C/svg%3E") ;
   background-size: 12px 12px;
   background-position: center;
   background-repeat: no-repeat;
@@ -859,11 +859,11 @@ body.theme-dark .bases-view table tbody td:hover {
 /* Property Selects (QA Edge-case fix) */
 .metadata-property-value select {
   appearance: none; -webkit-appearance: none;
-  background-color: var(--geode-field-bg) !important;
-  background-image: var(--geode-chevron) !important;
-  background-repeat: no-repeat !important;
-  background-position: right 10px center !important;
-  background-size: 14px 14px !important;
+  background-color: var(--geode-field-bg) ;
+  background-image: var(--geode-chevron) ;
+  background-repeat: no-repeat ;
+  background-position: right 10px center ;
+  background-size: 14px 14px ;
   padding-right: 32px;
   border: 1px solid var(--geode-border);
   border-radius: var(--geode-radius-sm);
@@ -912,7 +912,7 @@ body.theme-dark .bases-view table tbody td:hover {
 .calendar .today { background: var(--geode-gold); color: #04120e; border-radius: 50%; box-shadow: 0 0 18px var(--geode-crystal-glow); }
 .kanban-plugin__lane { background: var(--geode-panel); border: 1px solid var(--geode-border); border-radius: 16px; }
 .kanban-plugin__lane-header { color: var(--geode-crystal-primary); font-weight: 700; }
-.kanban-plugin__item { background: var(--geode-panel-solid) !important; border: 1px solid var(--geode-border); border-radius: 12px; }
+.kanban-plugin__item { background: var(--geode-panel-solid) ; border: 1px solid var(--geode-border); border-radius: 12px; }
 .kanban-plugin__item:hover { border-color: var(--geode-gold); box-shadow: 0 0 18px var(--geode-crystal-glow); }
 
 /* 27 · MODALS, MENUS, NOTICES */
@@ -989,8 +989,8 @@ textarea, select, .dropdown,
 .metadata-property-value textarea,
 .metadata-input-longtext, .metadata-input-text, .metadata-input-number,
 .combobox-button {
-  background-color: var(--geode-field-bg) !important;
-  background-image: none !important;
+  background-color: var(--geode-field-bg) ;
+  background-image: none ;
   border: 1px solid var(--geode-border);
   border-radius: var(--geode-radius-sm);
   color: var(--geode-text);
@@ -998,10 +998,10 @@ textarea, select, .dropdown,
 }
 select, .dropdown {
   appearance: none; -webkit-appearance: none;
-  background-image: var(--geode-chevron) !important;
-  background-repeat: no-repeat !important;
-  background-position: right 10px center !important;
-  background-size: 14px 14px !important;
+  background-image: var(--geode-chevron) ;
+  background-repeat: no-repeat ;
+  background-position: right 10px center ;
+  background-size: 14px 14px ;
   padding-right: 32px;
 }
 input[type="text"]:focus, input[type="search"]:focus, input[type="number"]:focus,
