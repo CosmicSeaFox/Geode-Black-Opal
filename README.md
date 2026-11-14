@@ -1,4 +1,4 @@
-# 💚 GEODE — MALACHITE & GOLD
+# 💚 GEODE BLACK OPAL
 
 <p align="center">
   <img src="https://img.shields.io/badge/OBSIDIAN-THEME-0B766E?style=for-the-badge">
