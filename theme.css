@@ -1,3834 +1,1078 @@
-/*
-=====================================================
+/* ═══════════════════════════════════════════════════════════════════
+   GEODE · MALACHITE & GOLD 
+   Whole-app marble · flat screenshot-style Properties (auto key width)
+   · hardened full-width reading · solid form fields · light = dark hues
+   · QA Checklist compliant (Property edge-cases & Plugin containment)
+   ═══════════════════════════════════════════════════════════════════ */
 
-GEODE OBSIDIAN THEME
-BLACK OPAL EDITION
-
-PART 1
-
-- Design Tokens
-- Dark / Light Modes
-- Obsidian Variables
-- Black Opal Crystal System
-- Crystal Veins
-- Workspace
-- Tabs
-- Ribbon
-- Status Bar
-
-=====================================================
+/* @settings
+name: GEODE · Malachite & Gold
+id: geode-malachite-gold
+settings:
+  - id: geode-crystal
+    title: Crystal personality
+    description: Recolors accents, links and glows. Gold veins stay gold.
+    type: class-select
+    allowEmpty: false
+    default: geode-malachite
+    options:
+      - label: Malachite
+        value: geode-malachite
+      - label: Opal
+        value: geode-opal
+      - label: Quartz
+        value: geode-quartz
+      - label: Sapphire
+        value: geode-sapphire
+      - label: Emerald
+        value: geode-emerald
+      - label: Citrine
+        value: geode-citrine
+      - label: Diamond
+        value: geode-diamond
+  - id: geode-ink-size
+    title: Pattern scale
+    description: Size of the fine crackle tile. Smaller = finer, denser veins.
+    type: variable-number-slider
+    default: 700
+    min: 300
+    max: 1400
+    step: 50
+    format: px
+  - id: geode-ink-opacity
+    title: Gold vein intensity
+    type: variable-number-slider
+    default: 0.9
+    min: 0
+    max: 1
+    step: 0.05
+  - id: geode-ribbon-veil
+    title: Ribbon visibility
+    description: Lower = more marble in the ribbon.
+    type: variable-number-slider
+    default: 0.5
+    min: 0.2
+    max: 0.9
+    step: 0.01
+  - id: geode-chrome-veil
+    title: Sidebar, tabs & header visibility
+    description: Lower = more marble in navigation chrome.
+    type: variable-number-slider
+    default: 0.72
+    min: 0.4
+    max: 0.95
+    step: 0.01
+  - id: geode-editor-veil
+    title: Reading & editing visibility
+    description: Lower = more marble behind note text.
+    type: variable-number-slider
+    default: 0.78
+    min: 0.5
+    max: 0.96
+    step: 0.01
+  - id: geode-status-veil
+    title: Status bar visibility
+    type: variable-number-slider
+    default: 0.82
+    min: 0.5
+    max: 0.96
+    step: 0.01
+  - id: geode-modal-veil
+    title: Palette & settings visibility
+    description: Command palette, quick switcher, settings, workspaces.
+    type: variable-number-slider
+    default: 0.88
+    min: 0.6
+    max: 0.96
+    step: 0.01
+  - id: geode-graph-veil
+    title: Graph & canvas visibility
+    description: Lower = more marble behind nodes.
+    type: variable-number-slider
+    default: 0.45
+    min: 0.1
+    max: 0.9
+    step: 0.01
+  - id: geode-blur
+    title: Glass blur
+    type: variable-number-slider
+    default: 10
+    min: 0
+    max: 24
+    step: 1
+    format: px
+  - id: geode-ambient
+    title: Ambient crystal glow
+    type: variable-number-slider
+    default: 0.1
+    min: 0
+    max: 0.3
+    step: 0.01
+  - id: geode-card
+    title: Framed card reading layout
+    description: Off = full-width reading view (default). On = centered 850px glass card.
+    type: class-toggle
+    default: false
+  - id: geode-no-blur
+    title: Disable glass blur (performance)
+    type: class-toggle
+    default: false
+  - id: geode-veins-off
+    title: Hide gold veins (pools only)
+    type: class-toggle
+    default: false
 */
 
-
-/*=====================================================
-01 DESIGN TOKENS
-=====================================================*/
-
-
+/* 01 · TOKENS */
 :root {
+  --geode-font-body: "Inter", "Noto Sans", sans-serif;
+  --geode-font-heading: "Cormorant Garamond", "Libre Baskerville", serif;
+  --geode-font-code: "JetBrains Mono", monospace;
+  --geode-radius-sm: 8px;
+  --geode-radius-md: 14px;
+  --geode-radius-lg: 20px;
+  --geode-transition: .25s ease;
+  --geode-ink-size: 700px;
+  --geode-ink-opacity: .9;
+  --geode-ribbon-veil: .5;
+  --geode-chrome-veil: .72;
+  --geode-editor-veil: .78;
+  --geode-status-veil: .82;
+  --geode-modal-veil: .88;
+  --geode-graph-veil: .45;
+  --geode-blur: 10px;
+  --geode-ambient: .10;
 
-    --geode-font-body:
-        "Inter",
-        "Noto Sans",
-        sans-serif;
+  --geode-crackle-art: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.016' numOctaves='4' seed='8' stitchTiles='stitch' result='n'/%3E%3CfeColorMatrix in='n' type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 3 3 0 -4.35' result='b'/%3E%3CfeGaussianBlur in='b' stdDeviation='0.3' result='sb'/%3E%3CfeFlood flood-color='%23e9b658' flood-opacity='0.5' result='g'/%3E%3CfeComposite in='g' in2='sb' operator='in'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23c)'/%3E%3C/svg%3E");
 
-
-    --geode-font-heading:
-        "Cormorant Garamond",
-        "Libre Baskerville",
-        serif;
-
-
-    --geode-font-code:
-        "JetBrains Mono",
-        monospace;
-
-
-    --geode-radius-sm:
-        8px;
-
-
-    --geode-radius-md:
-        14px;
-
-
-    --geode-radius-lg:
-        20px;
-
-
-    --geode-transition:
-        .25s ease;
-
+  --geode-ink-art: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1600' viewBox='0 0 1600 1600'%3E%3Cdefs%3E%3Cfilter id='w' x='-30%25' y='-30%25' width='160%25' height='160%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0038 0.0065' numOctaves='4' seed='14' stitchTiles='stitch' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='230' xChannelSelector='R' yChannelSelector='G'/%3E%3C/filter%3E%3Cfilter id='s' x='-30%25' y='-30%25' width='160%25' height='160%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.009' numOctaves='3' seed='4' stitchTiles='stitch' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='150' xChannelSelector='R' yChannelSelector='G'/%3E%3CfeGaussianBlur stdDeviation='1.4'/%3E%3C/filter%3E%3Cpath id='a' d='M-100 240C240 150 430 430 780 330S1280 130 1720 290'/%3E%3Cpath id='b' d='M-80 880C300 820 520 1050 880 930S1360 750 1740 890'/%3E%3Cpath id='c' d='M210-80C150 300 430 520 340 880S170 1360 310 1740'/%3E%3Cpath id='d' d='M1160-90C1090 260 1330 520 1240 880S1070 1390 1210 1720'/%3E%3Cpath id='e' d='M-90 1340C360 1250 720 1490 1080 1360S1520 1190 1730 1320'/%3E%3Cpath id='f' d='M-60 560C400 640 900 480 1250 640S1600 760 1760 660'/%3E%3Cpath id='g' d='M-60 80C300 40 600 160 900 90S1400 20 1700 110'/%3E%3Cpath id='h' d='M-60 1560C300 1500 620 1620 940 1540S1420 1460 1700 1560'/%3E%3Cpath id='i' d='M60-60C20 300 140 620 60 940S-20 1420 80 1700'/%3E%3Cpath id='j' d='M1540-60C1480 300 1600 620 1520 940S1440 1420 1540 1700'/%3E%3C/defs%3E%3Cg filter='url(%23s)' fill='none' stroke='%23c99738' stroke-opacity='.35' stroke-width='5' stroke-linecap='round'%3E%3Cuse href='%23a'/%3E%3Cuse href='%23b'/%3E%3Cuse href='%23c'/%3E%3Cuse href='%23d'/%3E%3Cuse href='%23e'/%3E%3Cuse href='%23f'/%3E%3C/g%3E%3Cg filter='url(%23w)' fill='none' stroke='%23e9b658' stroke-opacity='.9' stroke-width='1.8' stroke-linecap='round'%3E%3Cuse href='%23a'/%3E%3Cuse href='%23b'/%3E%3Cuse href='%23c'/%3E%3Cuse href='%23d'/%3E%3Cuse href='%23e'/%3E%3Cuse href='%23f'/%3E%3C/g%3E%3Cg filter='url(%23w)' fill='none' stroke='%23e9b658' stroke-opacity='.6' stroke-width='1.1' stroke-linecap='round'%3E%3Cuse href='%23g'/%3E%3Cuse href='%23h'/%3E%3Cuse href='%23i'/%3E%3Cuse href='%23j'/%3E%3C/g%3E%3Cg filter='url(%23w)' fill='%23f2ca6e' fill-opacity='.9'%3E%3Ccircle cx='250' cy='430' r='3'/%3E%3Ccircle cx='300' cy='470' r='1.8'/%3E%3Ccircle cx='205' cy='505' r='2.2'/%3E%3Ccircle cx='1050' cy='210' r='2.6'/%3E%3Ccircle cx='1105' cy='255' r='1.5'/%3E%3Ccircle cx='1160' cy='190' r='2'/%3E%3Ccircle cx='620' cy='760' r='2.2'/%3E%3Ccircle cx='668' cy='800' r='1.5'/%3E%3Ccircle cx='590' cy='830' r='1.8'/%3E%3Ccircle cx='1340' cy='1010' r='3'/%3E%3Ccircle cx='1395' cy='1050' r='1.6'/%3E%3Ccircle cx='1290' cy='1080' r='2'/%3E%3Ccircle cx='420' cy='1210' r='2.4'/%3E%3Ccircle cx='470' cy='1250' r='1.5'/%3E%3Ccircle cx='370' cy='1280' r='1.8'/%3E%3Ccircle cx='900' cy='1450' r='2.6'/%3E%3Ccircle cx='950' cy='1490' r='1.5'/%3E%3Ccircle cx='860' cy='1520' r='1.7'/%3E%3Ccircle cx='140' cy='140' r='1.2'/%3E%3Ccircle cx='480' cy='90' r='1'/%3E%3Ccircle cx='820' cy='150' r='1.3'/%3E%3Ccircle cx='1240' cy='90' r='1'/%3E%3Ccircle cx='1500' cy='160' r='1.2'/%3E%3Ccircle cx='90' cy='640' r='1.1'/%3E%3Ccircle cx='760' cy='560' r='1.2'/%3E%3Ccircle cx='1460' cy='620' r='1'/%3E%3Ccircle cx='180' cy='1040' r='1.2'/%3E%3Ccircle cx='1080' cy='1180' r='1.1'/%3E%3Ccircle cx='560' cy='1380' r='1.2'/%3E%3Ccircle cx='1420' cy='1420' r='1'/%3E%3Ccircle cx='340' cy='720' r='1'/%3E%3Ccircle cx='980' cy='980' r='1.1'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-
-
-/*=====================================================
-02 BLACK OPAL DARK MODE
-
-Volcanic obsidian stone
-with calm turquoise crystal veins
-
-=====================================================
-*/
-
-
+/* 02 · MALACHITE DARK */
 .theme-dark {
-
-
-    --geode-background:
-        #070909;
-
-
-    --geode-background-secondary:
-        #0d1111;
-
-
-    --geode-panel:
-        #131818;
-
-
-    --geode-panel-hover:
-        #1a2020;
-
-
-
-    /* Stone */
-
-    --geode-border:
-        #303838;
-
-
-    --geode-border-light:
-        #465151;
-
-
-
-    /* Black Opal Crystal */
-
-    --geode-crystal-primary:
-        #72d7d0;
-
-
-    --geode-crystal-secondary:
-        #d9e6e8;
-
-
-    --geode-crystal-glow:
-        rgba(114,215,208,.22);
-
-
-
-    /* Text */
-
-    --geode-text:
-        #d4dddd;
-
-
-    --geode-text-bright:
-        #f5f8f8;
-
-
-    --geode-text-muted:
-        #899494;
-
-
-
-    /* System */
-
-    --geode-success:
-        #7ee787;
-
-
-    --geode-warning:
-        #ffd166;
-
-
-    --geode-danger:
-        #ff7b7b;
-
-
+  --geode-background: #05120e;
+  --geode-background-secondary: #071d17;
+  --geode-panel: rgba(11,36,29,.72);
+  --geode-panel-hover: rgba(16,48,40,.82);
+  --geode-panel-solid: #0b241d;
+  --geode-field-bg: #0a2019;
+  --geode-border: #1d4237;
+  --geode-border-light: #2c5a4b;
+  --geode-teal-bright: #35b39a;
+  --geode-mint: #9fd4c8;
+  --geode-gold: #d9a441;
+  --geode-gold-bright: #f0c96c;
+  --geode-gold-seam: rgba(224,176,79,.35);
+  --geode-gold-tint: rgba(224,176,79,.12);
+  --geode-crystal-primary: #35b39a;
+  --geode-crystal-secondary: #f0c96c;
+  --geode-crystal-glow: rgba(224,176,79,.20);
+  --geode-text: #d7e5df;
+  --geode-text-bright: #f2f8f4;
+  --geode-text-muted: #9db4ab;
+  --geode-success: #7ee787;
+  --geode-warning: #ffd166;
+  --geode-danger: #ff7b7b;
+  --geode-info: #6fc3ff;
+  --geode-tint-hover: rgba(53,179,154,.10);
+  --geode-tint-active: rgba(53,179,154,.18);
+  --geode-card-seam: rgba(224,176,79,.16);
+  --geode-shadow: rgba(0,0,0,.45);
+  --geode-scrim: rgba(2,10,7,.65);
+  --geode-selection: rgba(53,179,154,.28);
+  --geode-active-line: rgba(224,176,79,.06);
+  --geode-code-bg: #04100c;
+  --geode-code-glow: rgba(53,179,154,.06);
+  --geode-code-text: #9fd4c8;
+  --geode-thead: #0e2c24;
+  --geode-canvas-node: rgba(11,36,29,.94);
+  --geode-graph-line: rgba(217,164,65,.40);
+  --geode-text-on-accent: #04120e;
+  --geode-ink-filter: none;
+  --geode-veil-soft: rgba(6,21,17,.45);
+  --geode-veil-strong: rgba(6,21,17,.93);
+  --geode-veil-ribbon: rgba(6,21,17,var(--geode-ribbon-veil));
+  --geode-veil-chrome: rgba(6,21,17,var(--geode-chrome-veil));
+  --geode-veil-text: rgba(5,18,14,var(--geode-editor-veil));
+  --geode-veil-status: rgba(6,21,17,var(--geode-status-veil));
+  --geode-veil-modal: rgba(6,21,17,var(--geode-modal-veil));
+  --geode-veil-graph: rgba(6,21,17,var(--geode-graph-veil));
+  --geode-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23d9a441' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  --geode-marble-pools:
+    radial-gradient(90% 70% at 25% 20%, rgba(53,179,154,.50), transparent 60%),
+    radial-gradient(80% 90% at 75% 35%, rgba(14,77,64,.85), transparent 65%),
+    radial-gradient(100% 80% at 55% 70%, rgba(23,118,107,.55), transparent 60%),
+    radial-gradient(70% 60% at 85% 80%, rgba(159,212,200,.18), transparent 55%),
+    radial-gradient(120% 100% at 30% 95%, rgba(4,18,14,.90), transparent 70%),
+    linear-gradient(160deg, #0a352c, #06231d 55%, #04120e);
 }
 
-
-
-
-/*=====================================================
-03 LIGHT MODE
-
-White quartz archive
-=====================================================
-*/
-
-
+/* 03 · MALACHITE LIGHT — same teal/gold hues as dark, higher visibility */
 .theme-light {
+  --geode-background: #e9f0ea;
+  --geode-background-secondary: #dde8e0;
+  --geode-panel: rgba(255,255,255,.55);
+  --geode-panel-hover: rgba(255,255,255,.75);
+  --geode-panel-solid: #eef4ee;
+  --geode-field-bg: #f8fbf7;
+  --geode-border: #b9cfc2;
+  --geode-border-light: #9dbba9;
+  --geode-teal-bright: #1f7a68;
+  --geode-mint: #2f6d5f;
+  --geode-gold: #a87b23;
+  --geode-gold-bright: #8f6b1d;
+  --geode-gold-seam: rgba(168,123,35,.45);
+  --geode-gold-tint: rgba(168,123,35,.16);
+  --geode-crystal-primary: #1f7a68;
+  --geode-crystal-secondary: #a87b23;
+  --geode-crystal-glow: rgba(31,122,104,.20);
+  --geode-text: #22302a;
+  --geode-text-bright: #101613;
+  --geode-text-muted: #4a5850;
+  --geode-success: #2f9e57;
+  --geode-warning: #a8761c;
+  --geode-danger: #c2453f;
+  --geode-info: #2b6fb0;
+  --geode-tint-hover: rgba(31,122,104,.10);
+  --geode-tint-active: rgba(31,122,104,.18);
+  --geode-card-seam: rgba(168,123,35,.30);
+  --geode-shadow: rgba(30,50,44,.25);
+  --geode-scrim: rgba(20,40,34,.45);
+  --geode-selection: rgba(31,122,104,.25);
+  --geode-active-line: rgba(168,123,35,.10);
+  --geode-code-bg: #dcebe2;
+  --geode-code-glow: rgba(31,122,104,.06);
+  --geode-code-text: #14564a;
+  --geode-thead: rgba(31,122,104,.18);
+  --geode-canvas-node: rgba(255,255,255,.90);
+  --geode-graph-line: rgba(143,107,29,.50);
+  --geode-text-on-accent: #ffffff;
+  --geode-ink-filter: none;
+  --geode-veil-soft: rgba(240,247,243,.40);
+  --geode-veil-strong: rgba(240,247,243,.92);
+  --geode-veil-ribbon: rgba(240,247,243, clamp(.25, calc(var(--geode-ribbon-veil) * .80), .95));
+  --geode-veil-chrome: rgba(240,247,243, clamp(.30, calc(var(--geode-chrome-veil) * .82), .95));
+  --geode-veil-text: rgba(240,247,243, clamp(.35, calc(var(--geode-editor-veil) * .85), .96));
+  --geode-veil-status: rgba(240,247,243, clamp(.35, calc(var(--geode-status-veil) * .85), .96));
+  --geode-veil-modal: rgba(240,247,243, clamp(.45, calc(var(--geode-modal-veil) * .88), .96));
+  --geode-veil-graph: rgba(240,247,243, clamp(.15, calc(var(--geode-graph-veil) * .80), .90));
+  --geode-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238f6b1d' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  --geode-marble-pools:
+    radial-gradient(90% 70% at 25% 20%, rgba(53,179,154,.38), transparent 60%),
+    radial-gradient(80% 90% at 75% 35%, rgba(14,77,64,.30), transparent 65%),
+    radial-gradient(100% 80% at 55% 70%, rgba(23,118,107,.34), transparent 60%),
+    radial-gradient(70% 60% at 85% 80%, rgba(159,212,200,.40), transparent 55%),
+    radial-gradient(120% 100% at 30% 95%, rgba(210,228,219,.55), transparent 70%),
+    linear-gradient(160deg, #e6f0e9, #d5e5db 55%, #c9dcd2);
+}
+body.theme-light .app-container::after { opacity: min(1, calc(var(--geode-ink-opacity) * 1.15)); }
 
-
-    --geode-background:
-        #f3f1eb;
-
-
-    --geode-background-secondary:
-        #ebe7dc;
-
-
-    --geode-panel:
-        #ffffff;
-
-
-    --geode-panel-hover:
-        #faf8f2;
-
-
-
-    --geode-border:
-        #d6d0c3;
-
-
-    --geode-border-light:
-        #bbb4a7;
-
-
-
-    --geode-crystal-primary:
-        #278f91;
-
-
-    --geode-crystal-secondary:
-        #527b80;
-
-
-    --geode-crystal-glow:
-        rgba(39,143,145,.18);
-
-
-
-    --geode-text:
-        #252828;
-
-
-    --geode-text-bright:
-        #111111;
-
-
-    --geode-text-muted:
-        #777777;
-
-
+/* 04 · OBSIDIAN VARIABLES */
+.theme-dark, .theme-light {
+  --background-primary: var(--geode-background);
+  --background-secondary: var(--geode-background-secondary);
+  --background-primary-alt: var(--geode-panel-solid);
+  --background-secondary-alt: var(--geode-panel-solid);
+  --background-modifier-border: var(--geode-border);
+  --background-modifier-border-hover: var(--geode-border-light);
+  --background-modifier-hover: var(--geode-tint-hover);
+  --background-modifier-active-hover: var(--geode-tint-active);
+  --background-modifier-form-field: var(--geode-field-bg);
+  --text-normal: var(--geode-text);
+  --text-muted: var(--geode-text-muted);
+  --text-faint: var(--geode-text-muted);
+  --text-accent: var(--geode-crystal-primary);
+  --text-accent-hover: var(--geode-gold-bright);
+  --text-on-accent: var(--geode-text-on-accent);
+  --text-selection: var(--geode-selection);
+  --text-highlight-bg: var(--geode-gold-tint);
+  --interactive-normal: var(--geode-panel-solid);
+  --interactive-hover: var(--geode-panel-hover);
+  --interactive-accent: var(--geode-crystal-primary);
+  --interactive-accent-hover: var(--geode-gold);
+  --divider-color: var(--geode-border);
+  --divider-color-hover: var(--geode-gold);
+  --scrollbar-bg: transparent;
+  --scrollbar-thumb-bg: var(--geode-tint-active);
+  --scrollbar-active-thumb-bg: var(--geode-gold-seam);
+  --radius-s: var(--geode-radius-sm);
+  --radius-m: var(--geode-radius-md);
+  --radius-l: var(--geode-radius-lg);
+  --input-radius: var(--geode-radius-sm);
+  --callout-radius: var(--geode-radius-md);
+  --modal-radius: var(--geode-radius-lg);
+  --code-background: var(--geode-code-bg);
+  --code-normal: var(--geode-text);
+  --code-comment: var(--geode-text-muted);
+  --code-keyword: var(--geode-crystal-primary);
+  --code-string: var(--geode-gold-bright);
+  --code-function: var(--geode-info);
+  --code-value: var(--geode-warning);
+  --code-important: var(--geode-danger);
+  --code-property: var(--geode-mint);
+  --code-tag: var(--geode-crystal-primary);
+  --code-punctuation: var(--geode-text-muted);
 }
 
-
-
-/*=====================================================
-04 OBSIDIAN CORE VARIABLES
-
-Compatibility layer
-
-=====================================================
-*/
-
-
-.theme-dark,
-.theme-light {
-
-
-    --background-primary:
-        var(--geode-background);
-
-
-    --background-secondary:
-        var(--geode-background-secondary);
-
-
-
-    --background-primary-alt:
-        var(--geode-panel);
-
-
-    --background-secondary-alt:
-        var(--geode-panel-hover);
-
-
-
-    --background-modifier-border:
-        var(--geode-border);
-
-
-
-    --text-normal:
-        var(--geode-text);
-
-
-
-    --text-muted:
-        var(--geode-text-muted);
-
-
-
-    --text-accent:
-        var(--geode-crystal-primary);
-
-
-
-    --interactive-accent:
-        var(--geode-crystal-primary);
-
-
-
-    --interactive-hover:
-        var(--geode-crystal-secondary);
-
-
-}
-
-
-
-/*=====================================================
-05 CRYSTAL VEIN SYSTEM
-
-Change crystal personality
-
-=====================================================
-*/
-
-
-/* Black Opal */
-
-body.geode-opal {
-
-
-    --geode-crystal-primary:
-        #72d7d0;
-
-
-    --geode-crystal-secondary:
-        #d9e6e8;
-
-
-    --geode-crystal-glow:
-        rgba(114,215,208,.22);
-
-}
-
-
-
-/* Quartz */
-
-body.geode-quartz {
-
-
-    --geode-crystal-primary:
-        #d9e6e8;
-
-
-    --geode-crystal-secondary:
-        #72d7d0;
-
-
-    --geode-crystal-glow:
-        rgba(217,230,232,.20);
-
-}
-
-
-
-/* Sapphire */
-
-body.geode-sapphire {
-
-
-    --geode-crystal-primary:
-        #4aa8ff;
-
-
-    --geode-crystal-secondary:
-        #8ed8ff;
-
-
-    --geode-crystal-glow:
-        rgba(74,168,255,.22);
-
-}
-
-
-
-/* Emerald */
-
-body.geode-emerald {
-
-
-    --geode-crystal-primary:
-        #46d98a;
-
-
-    --geode-crystal-secondary:
-        #9affc5;
-
-
-    --geode-crystal-glow:
-        rgba(70,217,138,.22);
-
-}
-
-
-
-/* Citrine */
-
-body.geode-citrine {
-
-
-    --geode-crystal-primary:
-        #ffc857;
-
-
-    --geode-crystal-secondary:
-        #ffe5a3;
-
-
-    --geode-crystal-glow:
-        rgba(255,200,87,.22);
-
-}
-
-
-
-/* Diamond */
-
-body.geode-diamond {
-
-
-    --geode-crystal-primary:
-        #e8f5ff;
-
-
-    --geode-crystal-secondary:
-        #ffffff;
-
-
-    --geode-crystal-glow:
-        rgba(232,245,255,.22);
-
-}
-
-
-
-/*=====================================================
-06 BODY
-
-=====================================================
-*/
-
-
+/* 05 · CRYSTAL PERSONALITIES */
+body.geode-malachite { --geode-crystal-primary:#35b39a; --geode-crystal-secondary:#f0c96c; --geode-crystal-glow:rgba(224,176,79,.20); }
+body.geode-opal      { --geode-crystal-primary:#72d7d0; --geode-crystal-secondary:#d9e6e8; --geode-crystal-glow:rgba(114,215,208,.22); }
+body.geode-quartz    { --geode-crystal-primary:#d9e6e8; --geode-crystal-secondary:#72d7d0; --geode-crystal-glow:rgba(217,230,232,.20); }
+body.geode-quartz.theme-light { --geode-crystal-primary:#4a8577; --geode-crystal-secondary:#a87b23; }
+body.geode-sapphire  { --geode-crystal-primary:#4aa8ff; --geode-crystal-secondary:#8ed8ff; --geode-crystal-glow:rgba(74,168,255,.22); }
+body.geode-sapphire.theme-light { --geode-crystal-primary:#2b6fb0; --geode-crystal-secondary:#1f7a68; }
+body.geode-emerald   { --geode-crystal-primary:#46d98a; --geode-crystal-secondary:#9affc5; --geode-crystal-glow:rgba(70,217,138,.22); }
+body.geode-emerald.theme-light { --geode-crystal-primary:#2f9e57; --geode-crystal-secondary:#1f7a68; }
+body.geode-citrine   { --geode-crystal-primary:#ffc857; --geode-crystal-secondary:#ffe5a3; --geode-crystal-glow:rgba(255,200,87,.22); }
+body.geode-citrine.theme-light { --geode-crystal-primary:#a8761c; --geode-crystal-secondary:#8f6b1d; }
+body.geode-diamond   { --geode-crystal-primary:#e8f5ff; --geode-crystal-secondary:#ffffff; --geode-crystal-glow:rgba(232,245,255,.22); }
+body.geode-diamond.theme-light { --geode-crystal-primary:#4a8577; --geode-crystal-secondary:#66756c; }
+
+/* 06 · GLOBAL SLAB — pools on body, veins on fixed layers */
 body {
-
-
-    background:
-
-        radial-gradient(
-            circle at top,
-            var(--geode-crystal-glow),
-            transparent 38%
-        ),
-
-        var(--geode-background);
-
-
-
-    color:
-
-        var(--geode-text);
-
-
-
-    font-family:
-
-        var(--geode-font-body);
-
-
-}
-
-
-
-/*=====================================================
-07 WORKSPACE
-
-Long session stability
-
-=====================================================
-*/
-
-
-.workspace {
-
-
-    background:
-
-        var(--geode-background);
-
-
-}
-
-
-
-.workspace-leaf {
-
-
-    background:
-
-        var(--geode-panel);
-
-
-
-    border-color:
-
-        var(--geode-border);
-
-
-}
-
-
-
-.workspace-leaf-content {
-
-
-    width:
-
-        100%;
-
-
-    overflow-x:
-
-        hidden;
-
-
-}
-
-
-
-/*=====================================================
-08 TABS
-
-=====================================================
-*/
-
-
-.workspace-tab-header {
-
-
-    color:
-
-        var(--geode-text-muted);
-
-
-}
-
-
-
-.workspace-tab-header:hover {
-
-
-    color:
-
-        var(--geode-text-bright);
-
-
-}
-
-
-
-.workspace-tab-header.is-active {
-
-
-    color:
-
-        var(--geode-text-bright);
-
-
-
-    border-bottom:
-
-        2px solid
-        var(--geode-crystal-primary);
-
-
-
-    box-shadow:
-
-        0 0 12px
-        var(--geode-crystal-glow);
-
-
-}
-
-
-
-/*=====================================================
-09 RIBBON
-
-=====================================================
-*/
-
-
-.workspace-ribbon {
-
-
-    background:
-
-        var(--geode-panel);
-
-
-
-    border-right:
-
-        1px solid
-        var(--geode-border);
-
-
-}
-
-
-
-.side-dock-ribbon-action {
-
-
-    color:
-
-        var(--geode-text-muted);
-
-
-}
-
-
-
-.side-dock-ribbon-action:hover {
-
-
-    color:
-
-        var(--geode-crystal-primary);
-
-
-}
-
-
-
-/*=====================================================
-10 STATUS BAR
-
-=====================================================
-*/
-
-
-.status-bar {
-
-
-    background:
-
-        var(--geode-panel);
-
-
-
-    border-top:
-
-        1px solid
-        var(--geode-border);
-
-
-
-    color:
-
-        var(--geode-text-muted);
-
-
-}
-
-
-
-.status-bar-item:hover {
-
-
-    color:
-
-        var(--geode-crystal-primary);
-
-
-}
-
-
-
-/*=====================================================
-11 SCROLLBAR
-=====================================================*/
-
-::-webkit-scrollbar {
-
-    width: 10px;
-    height: 10px;
-
-}
-
-
-::-webkit-scrollbar-track {
-
-    background:
-        var(--geode-background);
-
-}
-
-
-::-webkit-scrollbar-thumb {
-
-    background:
-        var(--geode-border);
-
-    border-radius:
-        20px;
-
-}
-
-
-::-webkit-scrollbar-thumb:hover {
-
-    background:
-        var(--geode-crystal-primary);
-
-}
-/*
-=====================================================
-
-GEODE OBSIDIAN THEME
-BLACK OPAL EDITION
-
-PART 2
-
-- Editor Foundation
-- Reading Mode
-- Live Preview
-- Typography
-- Headings
-- Links
-- Lists
-- Quotes
-- Tables
-- Code Blocks
-- Images
-- Mobile Comfort
-
-=====================================================
-*/
-
-
-/*=====================================================
-01 EDITOR FOUNDATION
-
-Designed for long writing sessions
-
-=====================================================
-*/
-
-
-.markdown-preview-view,
-.markdown-source-view {
-
-
-    font-family:
-
-        var(--geode-font-body);
-
-
-
-    font-size:
-
-        17px;
-
-
-
-    line-height:
-
-        1.75;
-
-
-
-    letter-spacing:
-
-        .01em;
-
-
-}
-
-
-
-/*=====================================================
-02 READING WIDTH
-
-Comfortable eye movement
-
-=====================================================
-*/
-
-
-.markdown-preview-view .markdown-preview-sizer {
-
-
-    max-width:
-
-        850px;
-
-
-
-    width:
-
-        100%;
-
-
-
-    margin:
-
-        0 auto;
-
-
-}
-
-
-
-/* Source editor */
-
-.markdown-source-view .cm-scroller {
-
-
-    padding-left:
-
-        35px;
-
-
-
-    padding-right:
-
-        35px;
-
-
-
-    overflow-x:
-
-        hidden;
-
-
-}
-
-
-
-/*=====================================================
-03 LIVE PREVIEW
-
-Writing chamber
-
-=====================================================
-*/
-
-
-.cm-editor {
-
-
-    font-family:
-
-        var(--geode-font-body);
-
-
-
-    font-size:
-
-        17px;
-
-
-
-    line-height:
-
-        1.7;
-
-
-}
-
-
-
-.cm-scroller {
-
-
-    overflow-x:
-
-        hidden;
-
-
-}
-
-
-
-/* Active writing line */
-
-
-.cm-activeLine {
-
-
-    background:
-
-        rgba(114,215,208,.045);
-
-
-}
-
-
-
-/* Cursor */
-
-
-.cm-cursor {
-
-
-    border-left-color:
-
-        var(--geode-crystal-primary);
-
-
-}
-
-
-
-/* Selection */
-
-
-.cm-selectionBackground {
-
-
-    background:
-
-        rgba(114,215,208,.22);
-
-
-}
-
-
-
-/*=====================================================
-04 TYPOGRAPHY
-
-=====================================================
-*/
-
-
-.markdown-preview-view h1,
-.markdown-preview-view h2,
-.markdown-preview-view h3,
-.markdown-preview-view h4,
-.markdown-preview-view h5,
-.markdown-preview-view h6 {
-
-
-    font-family:
-
-        var(--geode-font-heading);
-
-
-
-    font-weight:
-
-        700;
-
-
-
-    color:
-
-        var(--geode-text-bright);
-
-
-}
-
-
-
-/*=====================================================
-05 HEADINGS
-
-Black Opal crystal layers
-
-=====================================================
-*/
-
-
-.markdown-preview-view h1 {
-
-
-    font-size:
-
-        2.5em;
-
-
-
-    padding-bottom:
-
-        15px;
-
-
-
-    border-bottom:
-
-        1px solid
-        var(--geode-border);
-
-
-
-    text-shadow:
-
-        0 0 12px
-        var(--geode-crystal-glow);
-
-
-}
-
-
-
-.markdown-preview-view h2 {
-
-
-    font-size:
-
-        2em;
-
-
-
-    color:
-
-        var(--geode-crystal-primary);
-
-
-}
-
-
-
-.markdown-preview-view h3 {
-
-
-    font-size:
-
-        1.5em;
-
-
-
-    color:
-
-        var(--geode-crystal-secondary);
-
-
-}
-
-
-
-.markdown-preview-view h4,
-.markdown-preview-view h5,
-.markdown-preview-view h6 {
-
-
-    color:
-
-        var(--geode-text-bright);
-
-
-}
-
-
-
-/*=====================================================
-06 PARAGRAPHS
-
-Reading comfort
-
-=====================================================
-*/
-
-
-.markdown-preview-view p {
-
-
-    margin-bottom:
-
-        1.2em;
-
-
-
-    color:
-
-        var(--geode-text);
-
-
-}
-
-
-
-/*=====================================================
-07 LINKS
-
-Crystal veins
-
-=====================================================
-*/
-
-
-.markdown-preview-view a,
-.internal-link {
-
-
-    color:
-
-        var(--geode-crystal-primary);
-
-
-
-    text-decoration:
-
-        none;
-
-
-
-    transition:
-
-        var(--geode-transition);
-
-
-}
-
-
-
-.markdown-preview-view a:hover,
-.internal-link:hover {
-
-
-    color:
-
-        var(--geode-crystal-secondary);
-
-
-
-    text-shadow:
-
-        0 0 8px
-        var(--geode-crystal-glow);
-
-
-}
-
-
-
-/* Unresolved links */
-
-
-.is-unresolved {
-
-
-    color:
-
-        var(--geode-warning);
-
-
-}
-
-
-
-/*=====================================================
-08 LISTS
-
-=====================================================
-*/
-
-
-.markdown-preview-view ul,
-.markdown-preview-view ol {
-
-
-    padding-left:
-
-        30px;
-
-
-}
-
-
-
-.markdown-preview-view li {
-
-
-    margin-bottom:
-
-        8px;
-
-
-}
-
-
-
-.markdown-preview-view li::marker {
-
-
-    color:
-
-        var(--geode-crystal-primary);
-
-
-}
-
-
-
-/*=====================================================
-09 HIGHLIGHT
-
-Memory crystal
-
-=====================================================
-*/
-
-
-.markdown-preview-view mark {
-
-
-    background:
-
-        rgba(255,200,87,.20);
-
-
-
-    color:
-
-        var(--geode-text-bright);
-
-
-
-    padding:
-
-        2px 6px;
-
-
-
-    border-radius:
-
-        6px;
-
-
-}
-
-
-
-/*=====================================================
-10 BLOCKQUOTE
-
-Ancient inscription
-
-=====================================================
-*/
-
-
-blockquote {
-
-
-    background:
-
-        rgba(114,215,208,.07);
-
-
-
-    border-left:
-
-        4px solid
-        var(--geode-crystal-primary);
-
-
-
-    padding:
-
-        15px 20px;
-
-
-
-    border-radius:
-
-        var(--geode-radius-md);
-
-
-
-    color:
-
-        var(--geode-text-muted);
-
-
-
-    font-style:
-
-        italic;
-
-
-}
-
-
-
-/*=====================================================
-11 INLINE CODE
-
-=====================================================
-*/
-
-
-code {
-
-
-    font-family:
-
-        var(--geode-font-code);
-
-
-
-    background:
-
-        rgba(114,215,208,.10);
-
-
-
-    border:
-
-        1px solid
-        var(--geode-border);
-
-
-
-    padding:
-
-        2px 6px;
-
-
-
-    border-radius:
-
-        6px;
-
-
-
-    color:
-
-        var(--geode-crystal-secondary);
-
-
-}
-
-
-
-/*=====================================================
-12 CODE BLOCKS
-
-Crystal terminal
-
-=====================================================
-*/
-
-
-pre {
-
-
-    font-family:
-
-        var(--geode-font-code);
-
-
-
-    background:
-
-        #050707;
-
-
-
-    border:
-
-        1px solid
-        var(--geode-border);
-
-
-
-    border-radius:
-
-        14px;
-
-
-
-    padding:
-
-        20px;
-
-
-
-    overflow:
-
-        auto;
-
-
-
-    box-shadow:
-
-        inset 0 0 25px
-        rgba(114,215,208,.06);
-
-
-}
-
-
-
-pre code {
-
-
-    background:
-
-        transparent;
-
-
-
-    border:
-
-        none;
-
-
-
-    padding:
-
-        0;
-
-
-}
-
-
-
-/*=====================================================
-13 TABLE SYSTEM
-
-Archive stone
-
-HEADER AND BODY SAME COLOUR
-
-=====================================================
-*/
-
-
-.markdown-preview-view table,
-.table-view-table {
-
-
-    background:
-
-        var(--geode-panel);
-
-
-
-    border:
-
-        1px solid
-        var(--geode-border);
-
-
-
-    border-radius:
-
-        12px;
-
-
-
-    overflow:
-
-        hidden;
-
-
-}
-
-
-
-/* Header */
-
-
-.markdown-preview-view thead th,
-.table-view-table thead th {
-
-
-    background:
-
-        var(--geode-panel);
-
-
-
-    color:
-
-        var(--geode-crystal-primary);
-
-
-
-    font-weight:
-
-        700;
-
-
-}
-
-
-
-/* Body */
-
-
-.markdown-preview-view tbody td,
-.table-view-table tbody td {
-
-
-    background:
-
-        var(--geode-panel);
-
-
-
-    color:
-
-        var(--geode-text);
-
-
-}
-
-
-
-/* Cells */
-
-
-.markdown-preview-view th,
-.markdown-preview-view td,
-.table-view-table th,
-.table-view-table td {
-
-
-    border:
-
-        1px solid
-        var(--geode-border);
-
-
-
-    padding:
-
-        12px 14px;
-
-
-}
-
-
-
-/* Soft hover */
-
-
-.markdown-preview-view tbody tr:hover,
-.table-view-table tbody tr:hover {
-
-
-    background:
-
-        rgba(114,215,208,.05);
-
-
-}
-
-
-
-/*=====================================================
-14 DIVIDER
-
-Crystal fracture
-
-=====================================================
-*/
-
-
-.markdown-preview-view hr {
-
-
-    border:
-
-        none;
-
-
-
-    height:
-
-        1px;
-
-
-
-    background:
-
-        linear-gradient(
-            90deg,
-            transparent,
-            var(--geode-crystal-primary),
-            transparent
-        );
-
-
-}
-
-
-
-/*=====================================================
-15 IMAGES
-
-Crystal fragments
-
-=====================================================
-*/
-
-
-.markdown-preview-view img {
-
-
-    border-radius:
-
-        14px;
-
-
-
-    border:
-
-        1px solid
-        var(--geode-border);
-
-
-
-    box-shadow:
-
-        0 10px 30px
-        rgba(0,0,0,.30);
-
-
-}
-
-
-
-/*=====================================================
-16 MOBILE
-
-=====================================================
-*/
-
-
-@media(max-width:700px){
-
-
-    .markdown-preview-view {
-
-
-        font-size:
-
-            16px;
-
-
-
-        padding:
-
-            0 15px;
-
-
-    }
-
-
-
-    .markdown-preview-view .markdown-preview-sizer {
-
-
-        max-width:
-
-            100%;
-
-
-    }
-
-
-
-    .cm-editor {
-
-
-        font-size:
-
-            16px;
-
-
-    }
-
-
-}
-/*
-=====================================================
-
-GEODE OBSIDIAN THEME
-BLACK OPAL EDITION
-
-PART 3
-
-- Crystal Callouts
-- Tags
-- File Explorer
-- Properties Panel
-- Glass Panels
-- Search Popup
-- Buttons
-- Ambient Cave Lighting
-
-=====================================================
-*/
-
-
-/*=====================================================
-01 CRYSTAL CALLOUT SYSTEM
-
-Geode chambers
-
-Usage:
-
-> [!crystal]
-> Important knowledge
-
-> [!artifact]
-> Ancient object
-
-> [!research]
-> Investigation
-
-> [!secret]
-> Hidden information
-
-=====================================================
-*/
-
-
-.callout {
-
-
-    border-radius:
-
-        var(--geode-radius-md);
-
-
-
-    backdrop-filter:
-
-        blur(8px);
-
-
-
-    border:
-
-        1px solid
-        var(--geode-border);
-
-
-}
-
-
-
-/*=====================================================
-CRYSTAL
-
-=====================================================
-*/
-
-
-.callout[data-callout="crystal"] {
-
-
-    --callout-color:
-
-        114,215,208;
-
-
-
-    background:
-
-        rgba(114,215,208,.10);
-
-
-
-    border-color:
-
-        rgba(114,215,208,.45);
-
-
-
-    box-shadow:
-
-        0 0 18px
-        rgba(114,215,208,.12);
-
-
-}
-
-
-
-/*=====================================================
-ARTIFACT
-
-Ancient treasure
-
-=====================================================
-*/
-
-
-.callout[data-callout="artifact"] {
-
-
-    --callout-color:
-
-        210,180,120;
-
-
-
-    background:
-
-        rgba(210,180,120,.10);
-
-
-}
-
-
-
-/*=====================================================
-LORE
-
-=====================================================
-*/
-
-
-.callout[data-callout="lore"] {
-
-
-    --callout-color:
-
-        190,220,220;
-
-
-
-    background:
-
-        rgba(190,220,220,.08);
-
-
-}
-
-
-
-/*=====================================================
-RESEARCH
-
-=====================================================
-*/
-
-
-.callout[data-callout="research"] {
-
-
-    --callout-color:
-
-        74,168,255;
-
-
-
-    background:
-
-        rgba(74,168,255,.08);
-
-
-}
-
-
-
-/*=====================================================
-SECRET
-
-=====================================================
-*/
-
-
-.callout[data-callout="secret"] {
-
-
-    --callout-color:
-
-        255,120,170;
-
-
-
-    background:
-
-        rgba(255,120,170,.08);
-
-
-}
-
-
-
-/*=====================================================
-IDEA
-
-=====================================================
-*/
-
-
-.callout[data-callout="idea"] {
-
-
-    --callout-color:
-
-        255,200,87;
-
-
-
-    background:
-
-        rgba(255,200,87,.08);
-
-
-}
-
-
-
-/* Callout title */
-
-
-.callout-title {
-
-
-    font-weight:
-
-        700;
-
-
-
-    color:
-
-        var(--geode-text-bright);
-
-
-}
-
-
-
-/* Callout content */
-
-
-.callout-content {
-
-
-    color:
-
-        var(--geode-text);
-
-
-}
-
-
-
-/*=====================================================
-02 TAG SYSTEM
-
-Crystal labels
-
-=====================================================
-*/
-
-
-.tag {
-
-
-    background:
-
-        rgba(114,215,208,.10);
-
-
-
-    border:
-
-        1px solid
-        var(--geode-crystal-primary);
-
-
-
-    border-radius:
-
-        20px;
-
-
-
-    padding:
-
-        3px 10px;
-
-
-
-    color:
-
-        var(--geode-text);
-
-
-
-    transition:
-
-        var(--geode-transition);
-
-
-}
-
-
-
-.tag:hover {
-
-
-    background:
-
-        var(--geode-crystal-primary);
-
-
-
-    color:
-
-        #071010;
-
-
-
-    box-shadow:
-
-        0 0 12px
-        var(--geode-crystal-glow);
-
-
-}
-
-
-
-/*=====================================================
-03 FILE EXPLORER
-
-Crystal archive
-
-=====================================================
-*/
-
-
-.nav-folder-title {
-
-
-    color:
-
-        var(--geode-text);
-
-
-}
-
-
-
-.nav-folder-title-content {
-
-
-    font-weight:
-
-        600;
-
-
-}
-
-
-
-/* Folder crystal mark */
-
-
-.nav-folder-title-content::before {
-
-
-    content:
-
-        "◇ ";
-
-
-
-    color:
-
-        var(--geode-crystal-primary);
-
-
-}
-
-
-
-/* Folder hover */
-
-
-.nav-folder-title:hover {
-
-
-    color:
-
-        var(--geode-crystal-primary);
-
-
-}
-
-
-
-/* Active note */
-
-
-.nav-file-title.is-active {
-
-
-    background:
-
-        rgba(114,215,208,.10);
-
-
-
-    border-left:
-
-        3px solid
-        var(--geode-crystal-primary);
-
-
-
-    box-shadow:
-
-        inset 0 0 15px
-        rgba(114,215,208,.08);
-
-
-}
-
-
-
-/* File hover */
-
-
-.nav-file-title:hover {
-
-
-    background:
-
-        rgba(114,215,208,.05);
-
-
-
-    color:
-
-        var(--geode-crystal-primary);
-
-
-}
-
-
-
-/*=====================================================
-04 PROPERTIES PANEL
-
-Knowledge metadata stone
-
-=====================================================
-*/
-
-
-.metadata-container {
-
-
-    background:
-
-        var(--geode-panel);
-
-
-
-    border:
-
-        1px solid
-        var(--geode-border);
-
-
-
-    border-radius:
-
-        var(--geode-radius-md);
-
-
-
-    padding:
-
-        15px;
-
-
-
-    box-shadow:
-
-        0 10px 30px
-        rgba(0,0,0,.25);
-
-
-}
-
-
-
-.metadata-property {
-
-
-    border-bottom:
-
-        1px solid
-        var(--geode-border);
-
-
-}
-
-
-
-.metadata-property:last-child {
-
-
-    border-bottom:
-
-        none;
-
-
-}
-
-
-
-/* Property name */
-
-
-.metadata-property-key {
-
-
-    color:
-
-        var(--geode-crystal-primary);
-
-
-
-    font-weight:
-
-        700;
-
-
-}
-
-
-
-/* Property value */
-
-
-.metadata-property-value {
-
-
-    color:
-
-        var(--geode-text);
-
-
-}
-
-
-
-/*=====================================================
-05 GLASS CRYSTAL PANELS
-
-=====================================================
-*/
-
-
-.geode-glass {
-
-
-    background:
-
-        rgba(255,255,255,.035);
-
-
-
-    backdrop-filter:
-
-        blur(14px);
-
-
-
-    border:
-
-        1px solid
-        var(--geode-border);
-
-
-
-    border-radius:
-
-        var(--geode-radius-md);
-
-
-}
-
-
-
-/* Glow utility */
-
-
-.geode-glow {
-
-
-    box-shadow:
-
-        0 0 25px
-        var(--geode-crystal-glow);
-
-
-}
-
-
-
-/* Crystal border */
-
-
-.geode-border {
-
-
-    border:
-
-        1px solid
-        var(--geode-crystal-primary);
-
-
-}
-
-
-
-/*=====================================================
-06 AMBIENT CAVE LIGHTING
-
-Subtle only
-
-=====================================================
-*/
-
-
-.workspace {
-
-
-    position:
-
-        relative;
-
-
-}
-
-
-
-.workspace::before {
-
-
-    content:
-
-        "";
-
-
-
-    position:
-
-        absolute;
-
-
-
-    inset:
-
-        0;
-
-
-
-    pointer-events:
-
-        none;
-
-
-
-    background:
-
-        radial-gradient(
-            circle at top left,
-            var(--geode-crystal-glow),
-            transparent 30%
-        );
-
-
-
-    opacity:
-
-        .10;
-
-
-}
-
-
-
-.theme-light .workspace::before {
-
-
-    opacity:
-
-        .04;
-
-
-}
-
-
-
-/*=====================================================
-07 SEARCH / COMMAND PALETTE
-
-Crystal chamber
-
-=====================================================
-*/
-
-
-.modal,
-.prompt {
-
-
-    background:
-
-        var(--geode-panel);
-
-
-
-    border:
-
-        1px solid
-        var(--geode-border);
-
-
-
-    border-radius:
-
-        var(--geode-radius-md);
-
-
-
-    box-shadow:
-
-        0 20px 60px
-        rgba(0,0,0,.40);
-
-
-}
-
-
-
-.prompt-input {
-
-
-    background:
-
-        var(--geode-background);
-
-
-
-    border:
-
-        1px solid
-        var(--geode-border);
-
-
-
-    color:
-
-        var(--geode-text);
-
-
-}
-
-
-
-/*=====================================================
-08 BUTTON FOUNDATION
-
-=====================================================
-*/
-
-
-button {
-
-
-    border-radius:
-
-        10px;
-
-
-
-    transition:
-
-        var(--geode-transition);
-
-
-}
-
-
-
-button:hover {
-
-
-    box-shadow:
-
-        0 0 12px
-        var(--geode-crystal-glow);
-
-
-}
-/*
-=====================================================
-
-GEODE OBSIDIAN THEME
-BLACK OPAL EDITION
-
-PART 4
-
-- Dataview
-- Tasks
-- Calendar
-- Kanban
-- Canvas
-- Excalidraw
-- Graph View
-- Mermaid
-- Embeds
-- Accessibility
-- Final Polish
-
-=====================================================
-*/
-
-
-/*=====================================================
-01 DATAVIEW
-
-Black Opal archive database
-
-=====================================================
-*/
-
-
-.dataview {
-
-
-    color:
-
-        var(--geode-text);
-
-
-}
-
-
-
-.dataview.table-view-table {
-
-
-    background:
-
-        var(--geode-panel);
-
-
-
-    border:
-
-        1px solid
-        var(--geode-border);
-
-
-
-    border-radius:
-
-        var(--geode-radius-md);
-
-
-
-    overflow:
-
-        hidden;
-
-
-}
-
-
-
-/* Dataview header */
-
-
-.dataview th {
-
-
-    background:
-
-        var(--geode-panel);
-
-
-
-    color:
-
-        var(--geode-crystal-primary);
-
-
-
-    font-weight:
-
-        700;
-
-
-}
-
-
-
-/* Dataview body */
-
-
-.dataview td {
-
-
-    background:
-
-        var(--geode-panel);
-
-
-
-    color:
-
-        var(--geode-text);
-
-
-
-    border-color:
-
-        var(--geode-border);
-
-
-}
-
-
-
-/* Row hover */
-
-
-.dataview tbody tr:hover {
-
-
-    background:
-
-        rgba(114,215,208,.05);
-
-
-}
-
-
-
-/* Dataview cards */
-
-
-.dataview .card {
-
-
-    background:
-
-        var(--geode-panel);
-
-
-
-    border:
-
-        1px solid
-        var(--geode-border);
-
-
-
-    border-radius:
-
-        16px;
-
-
-
-    padding:
-
-        16px;
-
-
-}
-
-
-
-.dataview .card:hover {
-
-
-    border-color:
-
-        var(--geode-crystal-primary);
-
-
-
-    box-shadow:
-
-        0 0 18px
-        var(--geode-crystal-glow);
-
-
-}
-
-
-
-/*=====================================================
-02 TASK SYSTEM
-
-Crystal completion
-
-=====================================================
-*/
-
-
-.task-list-item-checkbox {
-
-
-    appearance:
-
-        none;
-
-
-
-    width:
-
-        18px;
-
-
-
-    height:
-
-        18px;
-
-
-
-    border:
-
-        2px solid
-        var(--geode-crystal-primary);
-
-
-
-    border-radius:
-
-        50%;
-
-
-}
-
-
-
-.task-list-item-checkbox:hover {
-
-
-    box-shadow:
-
-        0 0 10px
-        var(--geode-crystal-glow);
-
-
-}
-
-
-
+  background-color: var(--geode-background);
+  background-image: var(--geode-marble-pools);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: var(--geode-text);
+  font-family: var(--geode-font-body);
+}
+.app-container::before,
+.app-container::after {
+  content: ""; position: fixed; inset: 0;
+  pointer-events: none; z-index: 0;
+}
+.app-container::before {
+  background-image: radial-gradient(circle at top, var(--geode-crystal-glow), transparent 40%);
+  opacity: var(--geode-ambient);
+}
+.app-container::after {
+  background-image: var(--geode-crackle-art), var(--geode-ink-art);
+  background-size: var(--geode-ink-size) var(--geode-ink-size), cover;
+  background-repeat: repeat, no-repeat;
+  background-position: center, center;
+  opacity: var(--geode-ink-opacity);
+  filter: var(--geode-ink-filter);
+}
+body.geode-veins-off .app-container::after { display: none; }
+
+/* 06b · FORCED TRANSPARENCY — every structural container */
+.app-container, .horizontal-main-container,
+.workspace, .workspace-split, .workspace-split.mod-root,
+.workspace-split.mod-left-split, .workspace-split.mod-right-split,
+.workspace-tabs, .workspace-tab-container, .workspace-leaf,
+.workspace-leaf-content, .view-content, .nav-files-container,
+.search-result-container, .workspace-sidedock-vault-profile,
+.workspace-tab-header-container, .workspace-drawer-inner,
+.workspace-drawer .workspace-leaf-content {
+  background: transparent !important;
+}
+.horizontal-main-container { position: relative; z-index: 1; }
+
+/* 06c · ZONE VEILS — translucent color over the slab */
+.titlebar { background-color: var(--geode-veil-chrome) !important; border-bottom: 1px solid var(--geode-gold-seam); }
+.workspace-ribbon { background-color: var(--geode-veil-ribbon) !important; border-right: 1px solid var(--geode-gold-seam); }
+.mod-left-split .workspace-leaf-content,
+.mod-right-split .workspace-leaf-content { background-color: var(--geode-veil-chrome) !important; }
+.mod-root .workspace-tab-header-container { background-color: var(--geode-veil-chrome) !important; }
+.view-header { background-color: var(--geode-veil-chrome) !important; border-bottom: 1px solid var(--geode-border); }
+.mod-left-split .view-header, .mod-right-split .view-header { background: transparent !important; }
+.status-bar { background-color: var(--geode-veil-status) !important; border-top: 1px solid var(--geode-gold-seam); color: var(--geode-text-bright); }
+.markdown-source-view.mod-cm6 .cm-scroller { background-color: var(--geode-veil-text) !important; backdrop-filter: blur(var(--geode-blur)); }
+.markdown-preview-view { background-color: var(--geode-veil-text) !important; backdrop-filter: blur(var(--geode-blur)); }
+.workspace-leaf-content[data-type="graph"] .view-content,
+.workspace-leaf-content[data-type="localgraph"] .view-content { background-color: var(--geode-veil-graph) !important; }
+.canvas-wrapper { background-color: var(--geode-veil-graph) !important; }
+.empty-state { background-color: var(--geode-veil-graph) !important; }
+.modal, .prompt { background-color: var(--geode-veil-modal) !important; }
+.workspace-drawer { background-color: var(--geode-veil-chrome) !important; }
+.mobile-navbar { background-color: var(--geode-veil-status) !important; border-top: 1px solid var(--geode-gold-seam); }
+.mobile-toolbar { background-color: var(--geode-veil-status) !important; border-top: 1px solid var(--geode-gold-seam); padding-bottom: env(safe-area-inset-bottom); }
+.pdf-container, .pdf-viewer-container { background-color: var(--geode-veil-text) !important; }
+
+.titlebar-text { color: var(--geode-text-bright); font-size: 13px; letter-spacing: .02em; }
+.titlebar-button { color: var(--geode-text); }
+.titlebar-button:hover { color: var(--geode-gold-bright); background: var(--geode-tint-hover); }
+
+/* 07 · PANES */
+.workspace-leaf-resize-handle { background: transparent; }
+.mod-root .workspace-leaf-resize-handle { background: var(--geode-card-seam); }
+.workspace-leaf-resize-handle:hover, .workspace-leaf-resize-handle:active { background: var(--geode-gold-seam); }
+
+/* 08 · RIBBON */
+.side-dock-ribbon-action, .workspace-ribbon-collapse-btn { color: var(--geode-text-bright); transition: var(--geode-transition); }
+.side-dock-ribbon-action:hover { color: var(--geode-gold-bright); }
+
+/* 09 · SIDEBARS */
+.workspace-sidedock-vault-profile { border-top: 1px solid var(--geode-gold-seam); }
+
+/* 10 · TABS */
+.workspace-tab-header-container { border-bottom: 1px solid var(--geode-border); }
+.workspace-tab-header { color: var(--geode-text-bright); border-radius: var(--geode-radius-sm) var(--geode-radius-sm) 0 0; transition: var(--geode-transition); }
+.workspace-tab-header:hover { color: var(--geode-text-bright); background: var(--geode-tint-hover); }
+.workspace-tab-header.is-active { color: var(--geode-text-bright); background: var(--geode-veil-strong); border-bottom: 2px solid var(--geode-gold); box-shadow: 0 0 12px var(--geode-crystal-glow); }
+.workspace-tab-header-new-tab, .workspace-tab-header-tab-list { color: var(--geode-text-muted); }
+.workspace-tabs.mod-stacked .workspace-tab-header { background: var(--geode-veil-chrome); border-right: 1px solid var(--geode-border); }
+
+/* 11 · VIEW HEADER & STATUS BAR */
+.view-header-title { color: var(--geode-text-bright); font-family: var(--geode-font-heading); letter-spacing: .02em; }
+.view-action { color: var(--geode-text); }
+.view-action:hover { color: var(--geode-gold-bright); }
+.status-bar-item { transition: var(--geode-transition); }
+.status-bar-item:hover { color: var(--geode-gold-bright); }
+
+/* 12 · EXPLORER, BOOKMARKS & TREES */
+.nav-folder-title, .nav-file-title { color: var(--geode-text-bright); }
+.nav-folder-title-content { font-weight: 600; }
+.nav-folder-title-content::before { content: "◇ "; color: var(--geode-gold); }
+.nav-folder-title:hover { color: var(--geode-crystal-primary); }
+.nav-file-title { transition: var(--geode-transition); }
+.nav-file-title.is-active { background: var(--geode-tint-active); box-shadow: inset 3px 0 0 var(--geode-gold); color: var(--geode-text-bright); }
+.nav-file-title:hover { background: var(--geode-tint-hover); color: var(--geode-crystal-primary); }
+.tree-item-self { border-radius: var(--geode-radius-sm); transition: var(--geode-transition); }
+.tree-item-self:hover { background: var(--geode-tint-hover); }
+.tree-item-self.is-active { background: var(--geode-tint-active); box-shadow: inset 3px 0 0 var(--geode-gold); }
+.tree-item-icon { color: var(--geode-gold); }
+
+/* 13 · SEARCH */
+.search-result-file-title { color: var(--geode-crystal-primary); font-weight: 600; }
+.search-result-file-match { border-radius: var(--geode-radius-sm); }
+.search-result-file-match:hover { background: var(--geode-tint-hover); }
+.search-result-file-matched-text { background: var(--geode-gold-tint); color: var(--geode-gold-bright); border-radius: 3px; }
+.search-empty-state { color: var(--geode-text); }
+
+/* 14 · EDITOR — FULL WIDTH (hardened) */
+.markdown-preview-view, .markdown-source-view { font-family: var(--geode-font-body); font-size: 17px; line-height: 1.75; letter-spacing: .01em; }
+.markdown-preview-view, .markdown-source-view.mod-cm6 { --file-line-width: 100%; }
+.markdown-source-view.mod-cm6 .cm-editor,
+.markdown-source-view.mod-cm6 .cm-gutters { background: transparent; }
+.markdown-source-view.mod-cm6 .cm-scroller { padding: 0; }
+.markdown-source-view.mod-cm6 .cm-sizer,
+.markdown-source-view.mod-cm6.is-readable-line-width .cm-sizer,
+.markdown-source-view.mod-cm6.is-readable-line-width .cm-contentContainer {
+  max-width: 100%; width: 100%; margin: 0;
+  background: transparent; border: none; box-shadow: none;
+  padding: 36px clamp(22px, 5vw, 76px);
+}
+.cm-editor { font-family: var(--geode-font-body); font-size: 17px; line-height: 1.7; }
+.cm-editor .cm-content { caret-color: var(--geode-gold-bright); }
+.cm-editor .cm-activeLine { background: var(--geode-active-line); }
+.cm-editor .cm-activeLineGutter { background: transparent; color: var(--geode-gold-bright); }
+.cm-editor .cm-cursor { border-left-color: var(--geode-gold-bright); }
+.cm-editor .cm-selectionBackground { background: var(--geode-selection); }
+.cm-gutters { color: var(--geode-text-muted); }
+.cm-header-1, .cm-header-2, .cm-header-3, .cm-header-4, .cm-header-5, .cm-header-6 { font-family: var(--geode-font-heading); }
+.cm-header-1 { color: var(--geode-text-bright); }
+.cm-header-2 { color: var(--geode-crystal-primary); }
+.cm-header-3 { color: var(--geode-gold-bright); }
+.cm-formatting-header { color: var(--geode-gold); }
+.cm-hmd-internal-link, .cm-link { color: var(--geode-crystal-primary); }
+.cm-url { color: var(--geode-text-muted); }
+.cm-hashtag { color: var(--geode-crystal-primary); }
+.cm-inline-code { background: var(--geode-tint-hover); border-radius: 6px; color: var(--geode-code-text); font-family: var(--geode-font-code); }
+.cm-s-obsidian .HyperMD-codeblock { background-color: var(--geode-code-bg); }
+
+/* 15 · READING — FULL-BLEED WIDE (hardened) */
+.markdown-preview-view { text-rendering: optimizeLegibility; }
+.markdown-preview-view .markdown-preview-sizer,
+.markdown-preview-view.is-readable-line-width .markdown-preview-sizer {
+  max-width: 100%; width: 100%; margin: 0;
+  background: transparent; border: none; box-shadow: none; backdrop-filter: none;
+  padding: 44px clamp(24px, 6vw, 88px);
+}
+body.geode-card .markdown-preview-view { background: transparent !important; backdrop-filter: none; }
+body.geode-card .markdown-preview-view .markdown-preview-sizer {
+  max-width: 850px; margin: 0 auto;
+  background: var(--geode-veil-strong);
+  border: 1px solid var(--geode-card-seam);
+  border-radius: var(--geode-radius-lg);
+  padding: 40px 48px;
+  box-shadow: 0 12px 40px var(--geode-shadow);
+}
+.markdown-embed .markdown-preview-view,
+.hover-popover .markdown-preview-view,
+.canvas-node .markdown-preview-view { background: transparent !important; backdrop-filter: none; }
+.markdown-embed .markdown-preview-view .markdown-preview-sizer,
+.hover-popover .markdown-preview-view .markdown-preview-sizer,
+.canvas-node .markdown-preview-view .markdown-preview-sizer { max-width: 100%; padding: 0; }
+.hover-popover { background-color: var(--geode-panel-solid); border: 1px solid var(--geode-gold-seam); border-radius: var(--geode-radius-md); box-shadow: 0 18px 50px var(--geode-shadow); }
+
+/* 16 · HEADINGS */
+.markdown-preview-view h1, .markdown-preview-view h2, .markdown-preview-view h3,
+.markdown-preview-view h4, .markdown-preview-view h5, .markdown-preview-view h6 { font-family: var(--geode-font-heading); font-weight: 700; color: var(--geode-text-bright); }
+.markdown-preview-view h1 { font-size: 2.5em; padding-bottom: 15px; border-bottom: 1px solid var(--geode-card-seam); text-shadow: 0 0 12px var(--geode-crystal-glow); }
+.markdown-preview-view h2 { font-size: 2em; color: var(--geode-crystal-primary); }
+.markdown-preview-view h3 { font-size: 1.5em; color: var(--geode-crystal-secondary); }
+.markdown-preview-view p { margin-bottom: 1.2em; color: var(--geode-text); }
+
+/* 17 · LINKS & TAGS */
+.markdown-preview-view a, .internal-link { color: var(--geode-crystal-primary); text-decoration: none; transition: var(--geode-transition); }
+.markdown-preview-view a:hover, .internal-link:hover { color: var(--geode-gold-bright); text-shadow: 0 0 8px var(--geode-crystal-glow); }
+.is-unresolved { color: var(--geode-warning); }
+.tag { background: var(--geode-tint-hover); border: 1px solid var(--geode-crystal-primary); border-radius: 20px; padding: 3px 10px; color: var(--geode-text); transition: var(--geode-transition); }
+.tag:hover { background: var(--geode-crystal-primary); color: var(--geode-text-on-accent); box-shadow: 0 0 12px var(--geode-crystal-glow); }
+
+/* 18 · LISTS & TASKS */
+.markdown-preview-view ul, .markdown-preview-view ol { padding-left: 30px; }
+.markdown-preview-view li { margin-bottom: 8px; }
+.markdown-preview-view li::marker { color: var(--geode-crystal-primary); }
+.task-list-item-checkbox { appearance: none; width: 18px; height: 18px; border: 2px solid var(--geode-crystal-primary); border-radius: 50%; cursor: pointer; transition: var(--geode-transition); }
+.task-list-item-checkbox:hover { box-shadow: 0 0 10px var(--geode-crystal-glow); }
 .task-list-item-checkbox:checked {
+  background-color: var(--geode-gold); border-color: var(--geode-gold);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2304120e' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12l5 5L20 7'/%3E%3C/svg%3E");
+  background-size: 12px 12px; background-position: center; background-repeat: no-repeat;
+  box-shadow: 0 0 15px var(--geode-crystal-glow);
+}
+.task-list-item-checkbox:checked + span { opacity: .55; }
 
+/* 19 · QUOTES, MARK, HR, IMAGES */
+blockquote { background: var(--geode-tint-hover); border-left: 4px solid var(--geode-gold); padding: 15px 20px; border-radius: var(--geode-radius-md); color: var(--geode-text-muted); font-style: italic; }
+.markdown-preview-view mark { background: var(--geode-gold-tint); color: var(--geode-text-bright); padding: 2px 6px; border-radius: 6px; }
+.markdown-preview-view hr { border: none; height: 1px; background: linear-gradient(90deg, transparent, var(--geode-gold), transparent); }
+.markdown-preview-view img { border-radius: 14px; border: 1px solid var(--geode-border); box-shadow: 0 10px 30px var(--geode-shadow); }
 
-    background:
+/* 20 · CODE */
+code { font-family: var(--geode-font-code); background: var(--geode-tint-hover); border: 1px solid var(--geode-border); padding: 2px 6px; border-radius: 6px; color: var(--geode-code-text); }
+pre { font-family: var(--geode-font-code); background: var(--geode-code-bg); border: 1px solid var(--geode-border); border-radius: 14px; padding: 20px; overflow: auto; color: var(--geode-text); box-shadow: inset 0 0 25px var(--geode-code-glow); }
+pre code { background: transparent; border: none; padding: 0; color: inherit; }
 
-        var(--geode-crystal-primary);
-
-
-
-    box-shadow:
-
-        0 0 15px
-        var(--geode-crystal-glow);
-
-
+/* 21 · Tables, Dataview & Bases */
+.markdown-preview-view table,
+.table-view-table,
+.dataview.table-view-table,
+.bases-table,
+.bases-view table {
+	--geode-table-body: var(--geode-field-bg);
+	--geode-table-head: var(--geode-thead);
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+	border: 1px solid var(--geode-border);
+	border-radius: 12px;
+	overflow: hidden;
+	background-color: var(--geode-table-body);
+	background-image: none;
 }
 
-
-
-.task-list-item-checkbox:checked::after {
-
-
-    content:
-
-        "✓";
-
-
-
-    color:
-
-        #071010;
-
-
-
-    display:
-
-        flex;
-
-
-
-    justify-content:
-
-        center;
-
-
+body.theme-light .markdown-preview-view table,
+body.theme-light .table-view-table,
+body.theme-light .dataview.table-view-table,
+body.theme-light .bases-table,
+body.theme-light .bases-view table {
+	--geode-table-head: #dcebe2;
 }
 
-
-
-/* Completed text */
-
-
-.task-list-item-checkbox:checked + span {
-
-
-    opacity:
-
-        .55;
-
-
+body.theme-dark .markdown-preview-view table,
+body.theme-dark .table-view-table,
+body.theme-dark .dataview.table-view-table,
+body.theme-dark .bases-table,
+body.theme-dark .bases-view table {
+	--geode-table-head: #0e2c24;
 }
 
-
-
-/*=====================================================
-03 CALENDAR
-
-Crystal timeline
-
-=====================================================
-*/
-
-
-.calendar {
-
-
-    background:
-
-        var(--geode-panel);
-
-
-
-    border:
-
-        1px solid
-        var(--geode-border);
-
-
-
-    border-radius:
-
-        16px;
-
-
+.markdown-preview-view table thead,
+.table-view-table thead,
+.dataview.table-view-table thead,
+.bases-table thead,
+.bases-view table thead,
+.markdown-preview-view table thead tr,
+.table-view-table thead tr,
+.dataview.table-view-table thead tr,
+.bases-table thead tr,
+.bases-view table thead tr,
+.markdown-preview-view table thead th,
+.table-view-table thead th,
+.dataview.table-view-table thead th,
+.bases-table thead th,
+.bases-view table thead th,
+.markdown-preview-view table thead tr:hover,
+.table-view-table thead tr:hover,
+.dataview.table-view-table thead tr:hover,
+.bases-table thead tr:hover,
+.bases-view table thead tr:hover,
+.markdown-preview-view table thead th:hover,
+.table-view-table thead th:hover,
+.dataview.table-view-table thead th:hover,
+.bases-table thead th:hover,
+.bases-view table thead th:hover {
+	background-color: var(--geode-table-head);
+	background-image: none;
+	color: var(--geode-gold-bright);
+	font-weight: 700;
+	text-align: left;
 }
 
-
-
-.calendar .today {
-
-
-    background:
-
-        var(--geode-crystal-primary);
-
-
-
-    color:
-
-        #071010;
-
-
-
-    border-radius:
-
-        50%;
-
-
-
-    box-shadow:
-
-        0 0 18px
-        var(--geode-crystal-glow);
-
-
+.markdown-preview-view table tbody,
+.table-view-table tbody,
+.dataview.table-view-table tbody,
+.bases-table tbody,
+.bases-view table tbody,
+.markdown-preview-view table tbody tr,
+.table-view-table tbody tr,
+.dataview.table-view-table tbody tr,
+.bases-table tbody tr,
+.bases-view table tbody tr,
+.markdown-preview-view table tbody td,
+.table-view-table tbody td,
+.dataview.table-view-table tbody td,
+.bases-table tbody td,
+.bases-view table tbody td,
+.markdown-preview-view table tbody tr:hover,
+.table-view-table tbody tr:hover,
+.dataview.table-view-table tbody tr:hover,
+.bases-table tbody tr:hover,
+.bases-view table tbody tr:hover,
+.markdown-preview-view table tbody td:hover,
+.table-view-table tbody td:hover,
+.dataview.table-view-table tbody td:hover,
+.bases-table tbody td:hover,
+.bases-view table tbody td:hover {
+	background-color: transparent;
+	background-image: none;
+	color: var(--geode-text);
 }
 
-
-
-/*=====================================================
-04 KANBAN
-
-Project crystal formations
-
-=====================================================
-*/
-
-
-.kanban-plugin__lane {
-
-
-    background:
-
-        var(--geode-panel);
-
-
-
-    border:
-
-        1px solid
-        var(--geode-border);
-
-
-
-    border-radius:
-
-        16px;
-
-
+body.theme-light .markdown-preview-view table tbody tr:nth-child(odd),
+body.theme-light .markdown-preview-view table tbody tr:nth-child(even),
+body.theme-light .markdown-preview-view table tbody tr:hover,
+body.theme-light .markdown-preview-view table tbody tr:hover td,
+body.theme-light .markdown-preview-view table tbody td:hover,
+body.theme-light .table-view-table tbody tr:nth-child(odd),
+body.theme-light .table-view-table tbody tr:nth-child(even),
+body.theme-light .table-view-table tbody tr:hover,
+body.theme-light .table-view-table tbody tr:hover td,
+body.theme-light .table-view-table tbody td:hover,
+body.theme-light .dataview.table-view-table tbody tr:nth-child(odd),
+body.theme-light .dataview.table-view-table tbody tr:nth-child(even),
+body.theme-light .dataview.table-view-table tbody tr:hover,
+body.theme-light .dataview.table-view-table tbody tr:hover td,
+body.theme-light .dataview.table-view-table tbody td:hover,
+body.theme-light .bases-table tbody tr:nth-child(odd),
+body.theme-light .bases-table tbody tr:nth-child(even),
+body.theme-light .bases-table tbody tr:hover,
+body.theme-light .bases-table tbody tr:hover td,
+body.theme-light .bases-table tbody td:hover,
+body.theme-light .bases-view table tbody tr:nth-child(odd),
+body.theme-light .bases-view table tbody tr:nth-child(even),
+body.theme-light .bases-view table tbody tr:hover,
+body.theme-light .bases-view table tbody tr:hover td,
+body.theme-light .bases-view table tbody td:hover,
+body.theme-dark .markdown-preview-view table tbody tr:nth-child(odd),
+body.theme-dark .markdown-preview-view table tbody tr:nth-child(even),
+body.theme-dark .markdown-preview-view table tbody tr:hover,
+body.theme-dark .markdown-preview-view table tbody tr:hover td,
+body.theme-dark .markdown-preview-view table tbody td:hover,
+body.theme-dark .table-view-table tbody tr:nth-child(odd),
+body.theme-dark .table-view-table tbody tr:nth-child(even),
+body.theme-dark .table-view-table tbody tr:hover,
+body.theme-dark .table-view-table tbody tr:hover td,
+body.theme-dark .table-view-table tbody td:hover,
+body.theme-dark .dataview.table-view-table tbody tr:nth-child(odd),
+body.theme-dark .dataview.table-view-table tbody tr:nth-child(even),
+body.theme-dark .dataview.table-view-table tbody tr:hover,
+body.theme-dark .dataview.table-view-table tbody tr:hover td,
+body.theme-dark .dataview.table-view-table tbody td:hover,
+body.theme-dark .bases-table tbody tr:nth-child(odd),
+body.theme-dark .bases-table tbody tr:nth-child(even),
+body.theme-dark .bases-table tbody tr:hover,
+body.theme-dark .bases-table tbody tr:hover td,
+body.theme-dark .bases-table tbody td:hover,
+body.theme-dark .bases-view table tbody tr:nth-child(odd),
+body.theme-dark .bases-view table tbody tr:nth-child(even),
+body.theme-dark .bases-view table tbody tr:hover,
+body.theme-dark .bases-view table tbody tr:hover td,
+body.theme-dark .bases-view table tbody td:hover {
+	background-color: transparent;
+	background-image: none;
+	color: var(--geode-text);
 }
 
-
-
-.kanban-plugin__lane-header {
-
-
-    color:
-
-        var(--geode-crystal-primary);
-
-
-
-    font-weight:
-
-        700;
-
-
+.markdown-preview-view table th,
+.markdown-preview-view table td,
+.table-view-table th,
+.table-view-table td,
+.dataview.table-view-table th,
+.dataview.table-view-table td,
+.bases-table th,
+.bases-table td,
+.bases-view table th,
+.bases-view table td {
+	padding: 12px 14px;
+	border-right: 1px solid var(--geode-border);
+	border-bottom: 1px solid var(--geode-border);
 }
 
-
-
-.kanban-plugin__item {
-
-
-    background:
-
-        var(--geode-panel-hover);
-
-
-
-    border:
-
-        1px solid
-        var(--geode-border);
-
-
-
-    border-radius:
-
-        12px;
-
-
+.markdown-preview-view table th:last-child,
+.markdown-preview-view table td:last-child,
+.table-view-table th:last-child,
+.table-view-table td:last-child,
+.dataview.table-view-table th:last-child,
+.dataview.table-view-table td:last-child,
+.bases-table th:last-child,
+.bases-table td:last-child,
+.bases-view table th:last-child,
+.bases-view table td:last-child {
+	border-right: 0;
 }
 
-
-
-.kanban-plugin__item:hover {
-
-
-    border-color:
-
-        var(--geode-crystal-primary);
-
-
-
-    box-shadow:
-
-        0 0 18px
-        var(--geode-crystal-glow);
-
-
+.markdown-preview-view table tbody tr:last-child td,
+.table-view-table tbody tr:last-child td,
+.dataview.table-view-table tbody tr:last-child td,
+.bases-table tbody tr:last-child td,
+.bases-view table tbody tr:last-child td {
+	border-bottom: 0;
 }
 
-
-
-/*=====================================================
-05 CANVAS
-
-Geode planning chamber
-
-=====================================================
-*/
-
-
-.canvas-wrapper {
-
-
-    background:
-
-
-        radial-gradient(
-
-            circle at center,
-
-            #101616,
-
-            #050606
-
-        );
-
-
+.workspace-leaf-content .dataview .card,
+.workspace-leaf-content .bases-cards-item,
+.workspace-leaf-content .dataview.list-view-ul,
+.workspace-leaf-content .dataview.list-view-ol {
+	background-color: var(--geode-panel-solid);
+	background-image: none;
+	border: 1px solid var(--geode-border);
+	border-radius: 16px;
+	padding: 16px;
 }
 
-
-
-.canvas-node {
-
-
-    background:
-
-        rgba(15,20,20,.92);
-
-
-
-    border:
-
-        1px solid
-        var(--geode-border);
-
-
-
-    border-radius:
-
-        16px;
-
-
-
-    box-shadow:
-
-        0 10px 30px
-        rgba(0,0,0,.45);
-
-
+.workspace-leaf-content .dataview .card:hover,
+.workspace-leaf-content .bases-cards-item:hover {
+	border-color: var(--geode-gold);
+	box-shadow: 0 0 18px var(--geode-crystal-glow);
 }
 
-
-
-.canvas-node:hover {
-
-
-    border-color:
-
-        var(--geode-crystal-primary);
-
-
-
-    box-shadow:
-
-        0 0 25px
-        var(--geode-crystal-glow);
-
-
+.bases-toolbar,
+.bases-view .bases-toolbar {
+	background-color: var(--geode-veil-chrome);
+	border-bottom: 1px solid var(--geode-border);
 }
 
+/* 22 · CALLOUTS */
+.callout { border-radius: var(--geode-radius-md); backdrop-filter: blur(8px); border: 1px solid var(--geode-border); }
+.callout[data-callout="crystal"]  { --callout-color: 53,179,154;  background: rgba(53,179,154,.10);  border-color: rgba(53,179,154,.45);  box-shadow: 0 0 18px rgba(53,179,154,.12); }
+.callout[data-callout="artifact"] { --callout-color: 217,164,65;  background: rgba(217,164,65,.10);  border-color: rgba(217,164,65,.45); }
+.callout[data-callout="lore"]     { --callout-color: 159,212,200; background: rgba(159,212,200,.08); }
+.callout[data-callout="research"] { --callout-color: 111,195,255; background: rgba(111,195,255,.08); }
+.callout[data-callout="secret"]   { --callout-color: 255,120,170; background: rgba(255,120,170,.08); }
+.callout[data-callout="idea"]     { --callout-color: 240,201,108; background: rgba(240,201,108,.08); }
+.callout-title { font-weight: 700; color: var(--geode-text-bright); }
+.callout-content { color: var(--geode-text); }
 
+/* 23 · PROPERTIES — flat screenshot-style, AUTO-WIDTH key column, both modes */
+.metadata-container {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 4px 0 10px;
+  margin-bottom: 28px;
+}
+.metadata-properties-heading {
+  color: var(--geode-text-bright);
+  font-weight: 600;
+  font-size: 1.05em;
+  padding: 10px 0;
+}
+.metadata-property {
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--geode-border);
+  border-radius: 0;
+  padding: 10px 0;
+  min-height: 40px;
+}
+.metadata-property:hover { background: var(--geode-tint-hover); }
+.metadata-property-key {
+  flex: 0 0 auto;                 /* AUTO width — shrinks to the key text */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 28px;
+  color: var(--geode-text-bright);
+  font-weight: 700;
+}
+.metadata-property-icon { color: var(--geode-gold); flex: 0 0 auto; }
+.metadata-property-value {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--geode-text);
+}
+.metadata-property-value .internal-link,
+.metadata-property-value a { color: var(--geode-crystal-primary); }
+.metadata-property-value .internal-link:hover,
+.metadata-property-value a:hover { color: var(--geode-gold-bright); }
+.metadata-property-value .svg-icon { color: var(--geode-text-muted); }
+.metadata-input-longtext:empty,
+.metadata-property-value .mod-empty,
+.metadata-property-value [class*="empty"] { color: var(--geode-text-muted); }
 
-/*=====================================================
-06 EXCALIDRAW
-
-Crystal drawing room
-
-=====================================================
-*/
-
-
-.excalidraw {
-
-
-    --color-primary:
-
-        var(--geode-crystal-primary);
-
-
+/* List values: plain teal text + muted × on pointer devices */
+.multi-select-container {
+  background: transparent !important;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.multi-select-pill {
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  padding: 2px 6px;
+  color: var(--geode-crystal-primary);
+}
+.multi-select-pill-content { color: var(--geode-crystal-primary); }
+.multi-select-pill-remove-button { color: var(--geode-text-muted); }
+.multi-select-pill:hover { background: var(--geode-tint-hover); }
+/* Touch devices: faint tinted pill for tap targets */
+@media (hover: none) {
+  .multi-select-pill { background: var(--geode-tint-active); min-height: 32px; }
 }
 
-
-
-.excalidraw .App-menu {
-
-
-    background:
-
-        var(--geode-panel);
-
-
-
-    border-radius:
-
-        14px;
-
-
+/* Property Checkboxes (QA Edge-case fix) */
+.metadata-property-value input[type="checkbox"],
+.metadata-property-checkbox {
+  appearance: none; -webkit-appearance: none;
+  width: 18px; height: 18px; min-width: 18px;
+  border: 2px solid var(--geode-crystal-primary);
+  border-radius: 4px;
+  background-color: var(--geode-field-bg) !important;
+  background-image: none !important;
+  cursor: pointer;
+  transition: var(--geode-transition);
+  margin: 0;
+}
+.metadata-property-value input[type="checkbox"]:checked,
+.metadata-property-checkbox:checked {
+  background-color: var(--geode-gold) !important;
+  border-color: var(--geode-gold);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2304120e' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12l5 5L20 7'/%3E%3C/svg%3E") !important;
+  background-size: 12px 12px;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-
-
-/*=====================================================
-07 GRAPH VIEW
-
-BLACK OPAL GEODE NETWORK
-
-Underground crystal chamber
-
-=====================================================
-*/
-
-
-.graph-view {
-
-
-    background:
-
-
-        radial-gradient(
-
-            circle at center,
-
-            #111818,
-
-            #030404
-
-        );
-
-
+/* Property Selects (QA Edge-case fix) */
+.metadata-property-value select {
+  appearance: none; -webkit-appearance: none;
+  background-color: var(--geode-field-bg) !important;
+  background-image: var(--geode-chevron) !important;
+  background-repeat: no-repeat !important;
+  background-position: right 10px center !important;
+  background-size: 14px 14px !important;
+  padding-right: 32px;
+  border: 1px solid var(--geode-border);
+  border-radius: var(--geode-radius-sm);
+  color: var(--geode-text);
 }
 
+.metadata-add-button {
+  color: var(--geode-text-muted);
+  padding: 10px 0;
+  border: none;
+  background: transparent;
+}
+.metadata-add-button:hover { color: var(--geode-gold-bright); background: var(--geode-tint-hover); }
+.metadata-add-button .svg-icon { color: inherit; }
+/* Embeds & glass helpers */
+.markdown-embed, .internal-embed { background: var(--geode-panel-solid); border: 1px solid var(--geode-border); border-radius: 14px; padding: 12px; }
+.geode-glass { background: var(--geode-veil-soft); backdrop-filter: blur(14px); border: 1px solid var(--geode-border); border-radius: var(--geode-radius-md); }
+.geode-glow { box-shadow: 0 0 25px var(--geode-crystal-glow); }
+.geode-border { border: 1px solid var(--geode-crystal-primary); }
 
+/* 24 · GRAPH */
+.graph-view.color-fill { color: var(--geode-crystal-primary); }
+.graph-view.color-fill-focused { color: var(--geode-gold-bright); }
+.graph-view.color-fill-tag { color: var(--geode-gold); }
+.graph-view.color-fill-attachment { color: var(--geode-mint); }
+.graph-view.color-fill-unresolved { color: var(--geode-text-muted); }
+.graph-view.color-line { color: var(--geode-graph-line); }
+.graph-view.color-line-highlight { color: var(--geode-gold-bright); }
+.graph-view.color-arrow { color: var(--geode-graph-line); }
+.graph-view.color-text { color: var(--geode-text-bright); }
+.graph-view.color-circle { color: var(--geode-gold-seam); }
+.graph-controls { background: var(--geode-panel-solid); border: 1px solid var(--geode-border); border-radius: var(--geode-radius-md); box-shadow: 0 10px 30px var(--geode-shadow); }
+.graph-controls-button { color: var(--geode-text-muted); }
+.graph-controls-button:hover { color: var(--geode-gold-bright); }
 
-/* Crystal nodes */
+/* 25 · CANVAS, EXCALIDRAW, MERMAID */
+.canvas-node { background: var(--geode-canvas-node); border: 1px solid var(--geode-border); border-radius: 16px; box-shadow: 0 10px 30px var(--geode-shadow); }
+.canvas-node:hover { border-color: var(--geode-gold); box-shadow: 0 0 25px var(--geode-crystal-glow); }
+.canvas-menu { background: var(--geode-panel-solid); border: 1px solid var(--geode-border); border-radius: var(--geode-radius-md); }
+.excalidraw { --color-primary: var(--geode-crystal-primary); }
+.excalidraw .App-menu { background: var(--geode-panel-solid); border-radius: 14px; }
+.mermaid { background: var(--geode-tint-hover); border: 1px solid var(--geode-border); border-radius: 16px; padding: 20px; }
 
+/* 26 · CALENDAR & KANBAN (Plugin Containment Hardened) */
+.calendar { background: var(--geode-panel-solid); border: 1px solid var(--geode-border); border-radius: 16px; }
+.calendar .today { background: var(--geode-gold); color: #04120e; border-radius: 50%; box-shadow: 0 0 18px var(--geode-crystal-glow); }
+.kanban-plugin__lane { background: var(--geode-panel); border: 1px solid var(--geode-border); border-radius: 16px; }
+.kanban-plugin__lane-header { color: var(--geode-crystal-primary); font-weight: 700; }
+.kanban-plugin__item { background: var(--geode-panel-solid) !important; border: 1px solid var(--geode-border); border-radius: 12px; }
+.kanban-plugin__item:hover { border-color: var(--geode-gold); box-shadow: 0 0 18px var(--geode-crystal-glow); }
 
-.graph-view .node {
+/* 27 · MODALS, MENUS, NOTICES */
+.modal-container { background: var(--geode-scrim); backdrop-filter: blur(4px); }
+.modal, .prompt { border: 1px solid var(--geode-gold-seam); border-radius: var(--geode-radius-lg); box-shadow: 0 24px 70px var(--geode-shadow); overflow: hidden; }
+.modal-title { font-family: var(--geode-font-heading); color: var(--geode-text-bright); }
+.modal-close-button { color: var(--geode-text-muted); }
+.modal-close-button:hover { color: var(--geode-gold-bright); }
+.menu { background: var(--geode-panel-solid); border: 1px solid var(--geode-border); border-radius: var(--geode-radius-md); box-shadow: 0 14px 40px var(--geode-shadow); }
+.menu-item { border-radius: 6px; color: var(--geode-text); }
+.menu-item:hover { background: var(--geode-tint-active); color: var(--geode-text-bright); }
+.menu-item-icon { color: var(--geode-crystal-primary); }
+.menu-separator { border-bottom: 1px solid var(--geode-border); }
+.notice { background: var(--geode-panel-solid); color: var(--geode-text); border: 1px solid var(--geode-gold-seam); border-radius: var(--geode-radius-md); box-shadow: 0 14px 40px var(--geode-shadow); }
+.tooltip { background: var(--geode-panel-solid); color: var(--geode-text); border: 1px solid var(--geode-border); }
 
-
-    fill:
-
-        var(--geode-crystal-primary);
-
-
-
-    stroke:
-
-        var(--geode-crystal-secondary);
-
-
-
-    stroke-width:
-
-        2;
-
-
-
-    filter:
-
-        drop-shadow(
-
-            0 0 8px
-            var(--geode-crystal-glow)
-
-        );
-
-
+/* 28 · PALETTE, QUICK SWITCHER, KEYBOARD SHORTCUTS */
+.prompt-results { padding: 6px; }
+.suggestion-item { border-radius: var(--geode-radius-sm); padding: 8px 12px; }
+.suggestion-item.is-selected { background: var(--geode-tint-active); box-shadow: inset 3px 0 0 var(--geode-gold); }
+.suggestion-title { color: var(--geode-text-bright); }
+.suggestion-highlight { color: var(--geode-gold-bright); font-weight: 700; }
+.suggestion-note, .suggestion-aux { color: var(--geode-text-muted); }
+.prompt-instructions { border-top: 1px solid var(--geode-border); color: var(--geode-text-muted); }
+kbd, .suggestion-hotkey, .prompt-instruction-command, .setting-hotkey {
+  background: var(--geode-panel-solid);
+  border: 1px solid var(--geode-border-light); border-bottom-width: 2px;
+  border-radius: 6px; padding: 1px 7px;
+  font-family: var(--geode-font-code); font-size: .8em;
+  color: var(--geode-crystal-primary);
 }
 
+/* 29 · SETTINGS, WORKSPACES, COMMUNITY */
+.vertical-tab-header, .vertical-tab-content-container, .vertical-tab-content { background: transparent; }
+.vertical-tab-header { border-right: 1px solid var(--geode-border); }
+.vertical-tab-header-group-title { color: var(--geode-gold); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; font-size: .75em; }
+.vertical-tab-nav-item { color: var(--geode-text-bright); border-radius: var(--geode-radius-sm); transition: var(--geode-transition); }
+.vertical-tab-nav-item:hover { background: var(--geode-tint-hover); color: var(--geode-text-bright); }
+.vertical-tab-nav-item.is-active { background: var(--geode-tint-active); color: var(--geode-text-bright); box-shadow: inset 3px 0 0 var(--geode-gold); }
+.setting-item { border-top: 1px solid var(--geode-border); padding: 14px 0; }
+.setting-item-name { color: var(--geode-text-bright); }
+.setting-item-heading .setting-item-name { font-family: var(--geode-font-heading); color: var(--geode-gold-bright); font-size: 1.2em; }
+.setting-item-description { color: var(--geode-text); opacity: .85; }
+.setting-hotkey.has-conflict { border-color: var(--geode-danger); color: var(--geode-danger); }
+.checkbox-container { background: var(--geode-panel-solid); box-shadow: inset 0 0 0 1px var(--geode-border); }
+.checkbox-container.is-enabled { background: var(--geode-crystal-primary); box-shadow: inset 0 0 0 1px var(--geode-crystal-primary); }
+.community-item { background: var(--geode-panel-solid); border: 1px solid var(--geode-border); border-radius: var(--geode-radius-md); }
+.community-item:hover { border-color: var(--geode-gold-seam); }
+.community-item-name { color: var(--geode-text-bright); }
+.community-item-author, .community-item-downloads { color: var(--geode-text-muted); }
 
+/* 30 · EMPTY STATE */
+.empty-state::before { content: "◇"; font-size: 56px; color: var(--geode-gold-seam); text-shadow: 0 0 24px var(--geode-crystal-glow); margin-bottom: 8px; }
+.empty-state-title { font-family: var(--geode-font-heading); color: var(--geode-text-bright); }
+.empty-state-action { color: var(--geode-crystal-primary); background: var(--geode-veil-strong); border: 1px solid var(--geode-border); border-radius: 999px; padding: 6px 16px; transition: var(--geode-transition); }
+.empty-state-action:hover { border-color: var(--geode-gold); color: var(--geode-gold-bright); }
 
-/* Selected crystal */
+/* 31 · BUTTONS */
+button { background: var(--geode-panel-solid); color: var(--geode-text); border: 1px solid var(--geode-border); border-radius: 10px; transition: var(--geode-transition); }
+button:hover { border-color: var(--geode-gold-seam); box-shadow: 0 0 12px var(--geode-crystal-glow); }
+button.mod-cta { background: var(--geode-crystal-primary); color: var(--geode-text-on-accent); border-color: transparent; }
+button.mod-cta:hover { background: var(--geode-gold); color: #04120e; }
+button.mod-warning { background: var(--geode-danger); color: #ffffff; border-color: transparent; }
 
+/* 32 · SOLID FORM FIELDS — no marble, no pattern, ever */
+input[type="text"], input[type="search"], input[type="number"],
+input[type="email"], input[type="password"], input[type="date"],
+input[type="datetime-local"], input[type="url"],
+textarea, select, .dropdown,
+.search-input-container input,
+.prompt-input,
+.metadata-property-key input,
+.metadata-property-value input,
+.metadata-property-value textarea,
+.metadata-input-longtext, .metadata-input-text, .metadata-input-number,
+.combobox-button {
+  background-color: var(--geode-field-bg) !important;
+  background-image: none !important;
+  border: 1px solid var(--geode-border);
+  border-radius: var(--geode-radius-sm);
+  color: var(--geode-text);
+  box-shadow: none;
+}
+select, .dropdown {
+  appearance: none; -webkit-appearance: none;
+  background-image: var(--geode-chevron) !important;
+  background-repeat: no-repeat !important;
+  background-position: right 10px center !important;
+  background-size: 14px 14px !important;
+  padding-right: 32px;
+}
+input[type="text"]:focus, input[type="search"]:focus, input[type="number"]:focus,
+textarea:focus, select:focus, .dropdown:focus, .prompt-input:focus,
+.metadata-property-value input:focus, .metadata-input-longtext:focus {
+  border-color: var(--geode-gold);
+  box-shadow: 0 0 0 2px var(--geode-gold-tint);
+  outline: none;
+}
+.prompt-input { font-size: 1.05em; color: var(--geode-text-bright); }
+input[type="checkbox"] { accent-color: var(--geode-crystal-primary); }
+input[type="range"] { -webkit-appearance: none; appearance: none; background: transparent; }
+input[type="range"]::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--geode-crystal-primary), var(--geode-gold)); }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; margin-top: -6px; border-radius: 50%; background: var(--geode-gold-bright); border: 2px solid var(--geode-background); box-shadow: 0 0 10px var(--geode-crystal-glow); cursor: pointer; }
+progress { appearance: none; height: 6px; border-radius: 3px; overflow: hidden; }
+progress::-webkit-progress-bar { background: var(--geode-panel-solid); }
+progress::-webkit-progress-value { background: linear-gradient(90deg, var(--geode-crystal-primary), var(--geode-gold)); }
 
-.graph-view .node.is-selected {
+/* 33 · SCROLLBARS */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--geode-tint-active); border-radius: 8px; border: 2px solid transparent; background-clip: padding-box; }
+::-webkit-scrollbar-thumb:hover { background: var(--geode-gold-seam); border: 2px solid transparent; background-clip: padding-box; }
+::-webkit-scrollbar-corner { background: transparent; }
 
-
-    fill:
-
-        #ffffff;
-
-
-
-    stroke:
-
-        var(--geode-crystal-primary);
-
-
-
-    stroke-width:
-
-        4;
-
-
-
-    filter:
-
-        drop-shadow(
-
-            0 0 20px
-            var(--geode-crystal-primary)
-
-        );
-
-
+/* 34 · ACCESSIBILITY & PERFORMANCE */
+button:focus-visible, input:focus-visible, a:focus-visible, select:focus-visible { outline: 2px solid var(--geode-gold); outline-offset: 3px; }
+body.geode-no-blur .markdown-preview-view,
+body.geode-no-blur .markdown-source-view.mod-cm6 .cm-scroller,
+body.geode-no-blur .callout,
+body.geode-no-blur .geode-glass,
+body.geode-no-blur .modal-container { backdrop-filter: none; }
+@media (prefers-contrast: high) { .callout, .tag, .workspace-leaf { border-width: 2px; } }
+@media (prefers-reduced-motion: reduce) {
+  .workspace-tab-header, button, .tag, .internal-link,
+  .markdown-preview-view a, .side-dock-ribbon-action,
+  .status-bar-item, .suggestion-item, .vertical-tab-nav-item,
+  .nav-file-title, .tree-item-self, .empty-state-action { transition: none; }
 }
 
-
-
-/* Crystal veins */
-
-
-.graph-view .link {
-
-
-    stroke:
-
-        rgba(114,215,208,.30);
-
-
-
-    stroke-width:
-
-        1.5;
-
-
+/* 35 · MOBILE */
+body.is-mobile {
+  --geode-editor-veil: .90; --geode-chrome-veil: .86; --geode-modal-veil: .94;
+  --geode-status-veil: .90; --geode-graph-veil: .60; --geode-ink-size: 520px;
+}
+body.is-mobile { background-attachment: scroll; }
+body.is-mobile .markdown-preview-view,
+body.is-mobile .markdown-source-view.mod-cm6 .cm-scroller,
+body.is-mobile .callout,
+body.is-mobile .geode-glass,
+body.is-mobile .modal-container { backdrop-filter: none; }
+.workspace-drawer-header { background: transparent; border-bottom: 1px solid var(--geode-border); }
+.workspace-drawer-tab-option-item { color: var(--geode-text-muted); }
+.workspace-drawer-tab-option-item.is-active { color: var(--geode-gold-bright); }
+.mobile-navbar-action { color: var(--geode-text-bright); }
+.mobile-toolbar-option { color: var(--geode-text-bright); }
+/* Properties stack on phones: key above value, 44px targets */
+body.is-mobile .metadata-property { flex-wrap: wrap; align-items: flex-start; }
+body.is-mobile .metadata-property-key { width: 100%; padding-right: 0; margin-bottom: 4px; }
+body.is-mobile .metadata-property-value { width: 100%; }
+body.is-mobile .metadata-property-value input,
+body.is-mobile .metadata-input-longtext { min-height: 44px; }
+@media (max-width: 700px) {
+  .markdown-preview-view, .cm-editor { font-size: 16px; }
+  .markdown-preview-view .markdown-preview-sizer { padding: 24px 18px; }
+  .markdown-source-view.mod-cm6 .cm-sizer { padding: 24px 18px; }
+  .callout { border-radius: 10px; }
+  .metadata-container { border-radius: 0; }
 }
 
-
-
-/* Active vein */
-
-
-.graph-view .link.is-focused {
-
-
-    stroke:
-
-        var(--geode-crystal-secondary);
-
-
-
-    stroke-width:
-
-        3;
-
-
-
-    filter:
-
-        drop-shadow(
-
-            0 0 10px
-            var(--geode-crystal-glow)
-
-        );
-
-
-}
-
-
-
-/* Graph labels */
-
-
-.graph-view text {
-
-
-    fill:
-
-        var(--geode-text);
-
-
-
-    font-family:
-
-        var(--geode-font-body);
-
-
-}
-
-
-
-/*=====================================================
-08 MERMAID
-
-Crystal blueprint
-
-=====================================================
-*/
-
-
-.mermaid {
-
-
-    background:
-
-        rgba(114,215,208,.04);
-
-
-
-    border:
-
-        1px solid
-        var(--geode-border);
-
-
-
-    border-radius:
-
-        16px;
-
-
-
-    padding:
-
-        20px;
-
-
-}
-
-
-
-/*=====================================================
-09 EMBEDS
-
-Knowledge fragments
-
-=====================================================
-*/
-
-
-.markdown-embed,
-.internal-embed {
-
-
-    background:
-
-        var(--geode-panel);
-
-
-
-    border:
-
-        1px solid
-        var(--geode-border);
-
-
-
-    border-radius:
-
-        14px;
-
-
-
-    padding:
-
-        12px;
-
-
-}
-
-
-
-/*=====================================================
-10 ACCESSIBILITY
-
-Long session support
-
-=====================================================
-*/
-
-
-.markdown-preview-view {
-
-
-    text-rendering:
-
-        optimizeLegibility;
-
-
-}
-
-
-
-/* Focus */
-
-
-button:focus-visible,
-input:focus-visible {
-
-
-    outline:
-
-        2px solid
-        var(--geode-crystal-primary);
-
-
-
-    outline-offset:
-
-        3px;
-
-
-}
-
-
-
-/* High contrast */
-
-
-@media(prefers-contrast:high){
-
-
-    .callout,
-    .tag,
-    .workspace-leaf {
-
-
-        border-width:
-
-            2px;
-
-
-    }
-
-
-}
-
-
-
-/*=====================================================
-11 MOBILE
-
-=====================================================
-*/
-
-
-@media(max-width:700px){
-
-
-    .callout {
-
-
-        border-radius:
-
-            10px;
-
-
-    }
-
-
-
-    .metadata-container {
-
-
-        border-radius:
-
-            12px;
-
-
-    }
-
-
-
-    .workspace-ribbon {
-
-
-        background:
-
-            var(--geode-panel);
-
-
-    }
-
-
-}
-
-
-
-/*
-=====================================================
-
-GEODE OBSIDIAN THEME
-BLACK OPAL EDITION
-
-COMPLETE
-
-A calm underground crystal archive
-
-=====================================================
-*/
-/*
-=====================================================
-
-GEODE BLACK OPAL
-LIGHT MODE REFINEMENT
-
-Soft Crystal Glass UI
-
-=====================================================
-*/
-
-
-/*=====================================================
-01 LIGHT MODE SURFACE
-=====================================================*/
-
-
-.theme-light {
-
-
-    --geode-background:
-
-        #ddd9cd;
-
-
-    --geode-background-secondary:
-
-        #e7e3d8;
-
-
-    --geode-panel:
-
-        rgba(255,255,255,.45);
-
-
-    --geode-panel-hover:
-
-        rgba(255,255,255,.65);
-
-
-    --geode-border:
-
-        #cbc4b5;
-
-
-    --geode-text:
-
-        #303332;
-
-
-    --geode-text-bright:
-
-        #111313;
-
-
-    --geode-text-muted:
-
-        #73766f;
-
-
-
-}
-
-
-
-/*=====================================================
-02 MAIN READING GLASS
-=====================================================*/
-
-
-.theme-light .workspace-leaf,
-.theme-light .markdown-preview-view {
-
-
-    background:
-
-        transparent;
-
-
-
-}
-
-
-
-.theme-light .markdown-preview-sizer {
-
-
-    background:
-
-        rgba(255,255,255,.28);
-
-
-
-    backdrop-filter:
-
-        blur(12px);
-
-
-
-    border-radius:
-
-        20px;
-
-
-
-}
-
-
-
-/*=====================================================
-03 CODE BLOCK LIGHT CRYSTAL
-
-Readable code
-No black box
-
-=====================================================
-*/
-
-
-.theme-light pre {
-
-
-    background:
-
-        rgba(220,218,207,.75);
-
-
-
-    border:
-
-        1px solid
-        var(--geode-border);
-
-
-
-    color:
-
-        #343838;
-
-
-
-    box-shadow:
-
-
-        inset 0 0 30px
-        rgba(0,0,0,.05);
-
-
-
-}
-
-
-
-.theme-light pre code {
-
-
-    color:
-
-        #303536;
-
-
-
-    background:
-
-        transparent;
-
-
-
-}
-
-
-
-.theme-light code {
-
-
-    background:
-
-        rgba(40,127,130,.10);
-
-
-
-    color:
-
-        #245d60;
-
-
-
-}
-
-
-
-/*=====================================================
-04 TABLE GLASS
-
-=====================================================
-*/
-
-
-.theme-light table {
-
-
-    background:
-
-        rgba(255,255,255,.35);
-
-
-
-    backdrop-filter:
-
-        blur(10px);
-
-
-
-}
-
-
-
-.theme-light th {
-
-
-    background:
-
-        rgba(40,127,130,.10);
-
-
-
-    color:
-
-        #236d70;
-
-
-
-}
-
-
-
-.theme-light td {
-
-
-    background:
-
-        transparent;
-
-
-
-    color:
-
-        #343635;
-
-
-
-}
-
-
-
-/*=====================================================
-05 CALLOUT GLASS
-=====================================================
-*/
-
-
-.theme-light .callout {
-
-
-    background:
-
-        rgba(255,255,255,.35);
-
-
-
-    backdrop-filter:
-
-        blur(10px);
-
-
-
-}
-
-
-
-/*=====================================================
-06 EMBEDS / PANELS
-=====================================================
-*/
-
-
-.theme-light .markdown-embed,
-.theme-light .internal-embed,
-.theme-light .metadata-container {
-
-
-    background:
-
-        rgba(255,255,255,.40);
-
-
-
-    backdrop-filter:
-
-        blur(12px);
-
-
-
-}
-
-
-
-/*=====================================================
-07 FILE EXPLORER SOFT
-=====================================================
-*/
-
-
-.theme-light .nav-file-title.is-active {
-
-
-    background:
-
-        rgba(40,127,130,.12);
-
-
-
-}
-
-
-
-.theme-light .nav-file-title:hover {
-
-
-    background:
-
-        rgba(40,127,130,.08);
-
-
-
-}
-
-
-
-/*=====================================================
-08 REMOVE HARSH WHITE
-
-=====================================================
-*/
-
-
-.theme-light .workspace-tab-header-container,
-.theme-light .workspace-ribbon {
-
-
-    background:
-
-        rgba(255,255,255,.25);
-
-
-
-}
+/* 36 · PDF & MEDIA */
+.pdf-toolbar { background: var(--geode-veil-chrome); border-bottom: 1px solid var(--geode-border); }
+audio, video { border-radius: var(--geode-radius-md); }
+audio { width: 100%; }
